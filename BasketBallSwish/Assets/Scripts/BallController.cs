@@ -27,6 +27,7 @@ public class BallController : MonoBehaviour {
     private bool waitToThrowB;
     private bool upperBound;
     public AudioSource scoreAudio;
+    public AudioSource swishAudio;
     public GameObject scoreAnim;
     private int modeCounter = 0;
     private float ballHeight = 5;
@@ -70,7 +71,7 @@ public class BallController : MonoBehaviour {
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         //For Bot movement
         if (singlePlayerController.teamAMode.Equals("bot"))
@@ -199,6 +200,8 @@ public class BallController : MonoBehaviour {
             {
                 if (scoreAudio != null)
                     scoreAudio.Play();
+                if(swishAudio != null)                
+                    swishAudio.Play();                
                 StartCoroutine("MakeUserScore");
                 singlePlayerController.scoreB = singlePlayerController.scoreB + 3;
             }
@@ -206,6 +209,8 @@ public class BallController : MonoBehaviour {
             {
                 if (scoreAudio != null)
                     scoreAudio.Play();
+                if (swishAudio != null)
+                    swishAudio.Play();
                 StartCoroutine("MakeUserScore");
                 singlePlayerController.scoreA = singlePlayerController.scoreA + 3;
             }
@@ -255,7 +260,7 @@ public class BallController : MonoBehaviour {
         float vSpeed = Mathf.Sqrt(2 * g * height); // calculate the vertical speed
         float totalTime = 2 * vSpeed / g; // calculate the total time
         float maxDistance = Vector3.Distance(anyObject.transform.position, this.transform.position);
-        float hSpeed = maxDistance * 1.75f / totalTime; // calculate the horizontal speed
+        float hSpeed = maxDistance * 2.3f / totalTime; // calculate the horizontal speed
         if ((anyObject.transform.position.x - this.transform.position.x) < 0)
         {
             hSpeed = -hSpeed;

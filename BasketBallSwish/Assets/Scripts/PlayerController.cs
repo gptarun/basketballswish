@@ -15,10 +15,11 @@ public class PlayerController : MonoBehaviour {
     public HandMovement handMovement;
     public GameObject tapAnim;
     private float botTimer;
-
+    private float jumpHeight;
     // Use this for initialization
     void Start () {
         screenWidth = Screen.width;
+        jumpHeight = 8.0f;
         ballGameObject = GameObject.Find("basketball");
         ballScript = ballGameObject.GetComponent<BallController>();
         jumpPlayerAudio = GetComponent<AudioSource>();
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour {
                     {
                         if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamA") && isGrounded)
                         {
-                            this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, 7);
+                            this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, jumpHeight);
                             isGrounded = false;
                         }
                     }
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour {
                     {
                         if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamB") && isGrounded)
                         {
-                            this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, 7);
+                            this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, jumpHeight);
                             isGrounded = false;
                         }
                     }
@@ -83,7 +84,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamA") && isGrounded)
                     {
-                        this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, 7);
+                        this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, jumpHeight);
                         isGrounded = false;
                     }
                 }
@@ -91,7 +92,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamB") && isGrounded)
                     {
-                        this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, 7);
+                        this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, jumpHeight);
                         isGrounded = false;
                     }
                 }
@@ -109,7 +110,7 @@ public class PlayerController : MonoBehaviour {
         float vSpeed = height; // calculate the vertical speed
         float totalTime = 6 * vSpeed / g; // calculate the total time
         float maxDistance = Vector3.Distance(anyObject.transform.position, this.transform.position);
-        float hSpeed = maxDistance / totalTime * 2; // calculate the horizontal speed
+        float hSpeed = maxDistance * 1.50f / totalTime * 2; // calculate the horizontal speed
         if ((anyObject.transform.position.x - this.transform.position.x) < 0)
         {
             if (hSpeed < -maxHspeed)
@@ -200,7 +201,7 @@ public class PlayerController : MonoBehaviour {
         }
         if (this.isGrounded)
         {
-            this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, 7);
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, jumpHeight);
         }
         routineCall = false;
     }

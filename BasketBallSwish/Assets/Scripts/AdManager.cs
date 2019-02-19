@@ -14,8 +14,8 @@ public class AdManager : MonoBehaviour {
     TournamentController tournamentController;
     private void Start()
     {
-        string adID = "ca-app-pub-7244224353357409/2886059541";   //User actual id
-        //string adID = "ca-app-pub-3940256099942544/1033173712";     //Test interstitial test id - Need to change in production
+        //string adID = "ca-app-pub-7244224353357409/2886059541";   //User actual id
+        string adID = "ca-app-pub-3940256099942544/1033173712";     //Test interstitial test id - Need to change in production
 #if UNITY_ANDROID
         string adUnitId = adID;
 #elif UNITY_IOS

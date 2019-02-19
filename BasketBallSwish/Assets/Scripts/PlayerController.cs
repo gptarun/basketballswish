@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
         routineCall = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!singlePlayerController.matchEnded){
             //For Bot movement

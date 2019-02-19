@@ -8,6 +8,7 @@ public class BallController : MonoBehaviour {
     public GameObject basketB;
     public Transform ball;
     private GameObject ballGameObject;
+    private SpriteRenderer basketballSprite;
     [HideInInspector] public bool attached;
     [HideInInspector] public string attachName;
     [HideInInspector] public string attachParentName;
@@ -40,6 +41,7 @@ public class BallController : MonoBehaviour {
     void Start()
     {
         ballGameObject = GameObject.Find("basketball");
+        basketballSprite = ballGameObject.GetComponent<SpriteRenderer>();
         gameSceneObject = GameObject.Find("GameSceneObject");
         basketA = GameObject.Find("Basket_Team1");
         basketB = GameObject.Find("Basket_Team2");
@@ -243,6 +245,7 @@ public class BallController : MonoBehaviour {
     private void LaunchBall(GameObject basket, float height)
     {
         //ballGameObject.transform.parent = gameSceneObject.transform;
+        basketballSprite.sortingOrder = 0;
         ballGameObject.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;
         ballGameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(basket, height);// launch the projectile!
         ballGameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
@@ -277,6 +280,7 @@ public class BallController : MonoBehaviour {
     public void attachBall(Collider2D col)
     {
         //ballGameObject.transform.parent = col.transform;
+        basketballSprite.sortingOrder = 4;
         ballGameObject.transform.position = col.transform.position;
 		ballGameObject.transform.rotation = Quaternion.Euler(0, 0, 0);				 
         ballGameObject.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)2;

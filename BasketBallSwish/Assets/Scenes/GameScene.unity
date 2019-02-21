@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 46773601}
   - component: {fileID: 46773604}
   - component: {fileID: 46773602}
+  - component: {fileID: 46773603}
   m_Layer: 9
   m_Name: PAHand3
   m_TagString: Hand
@@ -163,6 +164,24 @@ MonoBehaviour:
   botAntiRotateB: 0
   singlePlayerController: {fileID: 371944155}
   playerController: {fileID: 1858472634}
+--- !u!95 &46773603
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 46773600}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &46773604
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -429,6 +448,7 @@ GameObject:
   - component: {fileID: 210798200}
   - component: {fileID: 210798204}
   - component: {fileID: 210798201}
+  - component: {fileID: 210798205}
   m_Layer: 0
   m_Name: PBody3
   m_TagString: TeamA
@@ -468,6 +488,7 @@ MonoBehaviour:
   routineCall: 0
   handMovement: {fileID: 46773602}
   tapAnim: {fileID: 0}
+  playerAnim: {fileID: 210798205}
 --- !u!60 &210798201
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -590,6 +611,24 @@ CircleCollider2D:
   m_Offset: {x: 0.01, y: -0.86}
   serializedVersion: 2
   m_Radius: 0.31348205
+--- !u!95 &210798205
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 210798198}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 868df37f61e22cf4bb02cc5921ea0562, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &219805326
 GameObject:
   m_ObjectHideFlags: 0
@@ -2340,6 +2379,7 @@ GameObject:
   - component: {fileID: 687963691}
   - component: {fileID: 687963695}
   - component: {fileID: 687963692}
+  - component: {fileID: 687963696}
   m_Layer: 0
   m_Name: PBody2
   m_TagString: TeamA
@@ -2379,6 +2419,7 @@ MonoBehaviour:
   routineCall: 0
   handMovement: {fileID: 919854961}
   tapAnim: {fileID: 0}
+  playerAnim: {fileID: 687963696}
 --- !u!60 &687963692
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2501,6 +2542,24 @@ CircleCollider2D:
   m_Offset: {x: 0.01, y: -0.86}
   serializedVersion: 2
   m_Radius: 0.31348205
+--- !u!95 &687963696
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 687963689}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 868df37f61e22cf4bb02cc5921ea0562, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &694144510
 GameObject:
   m_ObjectHideFlags: 0
@@ -2605,6 +2664,7 @@ GameObject:
   - component: {fileID: 715161162}
   - component: {fileID: 715161165}
   - component: {fileID: 715161163}
+  - component: {fileID: 715161164}
   m_Layer: 9
   m_Name: PAHand1
   m_TagString: Hand
@@ -2619,8 +2679,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 715161161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.79999995, z: 0}
-  m_LocalScale: {x: 1.0971788, y: 1.059345, z: 1.0089}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1.097179, y: 1.059345, z: 1.0089}
   m_Children:
   - {fileID: 189724981}
   m_Father: {fileID: 1695395017}
@@ -2645,6 +2705,24 @@ MonoBehaviour:
   botAntiRotateB: 0
   singlePlayerController: {fileID: 371944155}
   playerController: {fileID: 993438784}
+--- !u!95 &715161164
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 715161161}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e645744f79adc5a48b41b8717f0f2b25, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &715161165
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2720,7 +2798,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 766937605}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.01, y: 2.4, z: 0}
+  m_LocalPosition: {x: 0.023, y: 2.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 371944154}
@@ -4216,6 +4294,7 @@ GameObject:
   - component: {fileID: 919854960}
   - component: {fileID: 919854963}
   - component: {fileID: 919854961}
+  - component: {fileID: 919854962}
   m_Layer: 9
   m_Name: PAHand2
   m_TagString: Hand
@@ -4256,6 +4335,24 @@ MonoBehaviour:
   botAntiRotateB: 0
   singlePlayerController: {fileID: 371944155}
   playerController: {fileID: 1465716803}
+--- !u!95 &919854962
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919854959}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &919854963
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4559,6 +4656,7 @@ GameObject:
   - component: {fileID: 993438784}
   - component: {fileID: 993438786}
   - component: {fileID: 993438782}
+  - component: {fileID: 993438787}
   m_Layer: 0
   m_Name: PBody1
   m_TagString: TeamB
@@ -4701,6 +4799,7 @@ MonoBehaviour:
   routineCall: 0
   handMovement: {fileID: 1595811588}
   tapAnim: {fileID: 550502164}
+  playerAnim: {fileID: 993438787}
 --- !u!82 &993438785
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4811,6 +4910,24 @@ CircleCollider2D:
   m_Offset: {x: 0.01, y: -0.86}
   serializedVersion: 2
   m_Radius: 0.31348205
+--- !u!95 &993438787
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 993438779}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 868df37f61e22cf4bb02cc5921ea0562, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1008775205
 GameObject:
   m_ObjectHideFlags: 0
@@ -5239,6 +5356,7 @@ GameObject:
   - component: {fileID: 1157470259}
   - component: {fileID: 1157470261}
   - component: {fileID: 1157470260}
+  - component: {fileID: 1157470262}
   m_Layer: 9
   m_Name: PBHand2
   m_TagString: Hand
@@ -5325,6 +5443,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1157470262
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1157470258}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1165365418
 GameObject:
   m_ObjectHideFlags: 0
@@ -6150,6 +6286,7 @@ GameObject:
   - component: {fileID: 1301957351}
   - component: {fileID: 1301957353}
   - component: {fileID: 1301957352}
+  - component: {fileID: 1301957354}
   m_Layer: 9
   m_Name: PBHand3
   m_TagString: Hand
@@ -6236,6 +6373,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1301957354
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1301957350}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1302814153
 GameObject:
   m_ObjectHideFlags: 0
@@ -6587,6 +6742,7 @@ GameObject:
   - component: {fileID: 1465716803}
   - component: {fileID: 1465716804}
   - component: {fileID: 1465716801}
+  - component: {fileID: 1465716805}
   m_Layer: 0
   m_Name: PBody2
   m_TagString: TeamB
@@ -6730,6 +6886,7 @@ MonoBehaviour:
   routineCall: 0
   handMovement: {fileID: 1157470260}
   tapAnim: {fileID: 0}
+  playerAnim: {fileID: 1465716805}
 --- !u!58 &1465716804
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6745,6 +6902,24 @@ CircleCollider2D:
   m_Offset: {x: 0.01, y: -0.86}
   serializedVersion: 2
   m_Radius: 0.31348205
+--- !u!95 &1465716805
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1465716798}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 868df37f61e22cf4bb02cc5921ea0562, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1474681663
 GameObject:
   m_ObjectHideFlags: 0
@@ -7068,6 +7243,7 @@ GameObject:
   - component: {fileID: 1595811587}
   - component: {fileID: 1595811589}
   - component: {fileID: 1595811588}
+  - component: {fileID: 1595811590}
   m_Layer: 9
   m_Name: PBHand1
   m_TagString: Hand
@@ -7154,6 +7330,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1595811590
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1595811586}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1598599631
 GameObject:
   m_ObjectHideFlags: 0
@@ -7476,6 +7670,7 @@ GameObject:
   - component: {fileID: 1695395018}
   - component: {fileID: 1695395023}
   - component: {fileID: 1695395019}
+  - component: {fileID: 1695395024}
   m_Layer: 0
   m_Name: PBody1
   m_TagString: TeamA
@@ -7515,6 +7710,7 @@ MonoBehaviour:
   routineCall: 0
   handMovement: {fileID: 715161163}
   tapAnim: {fileID: 550502164}
+  playerAnim: {fileID: 1695395024}
 --- !u!60 &1695395019
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -7732,6 +7928,24 @@ CircleCollider2D:
   m_Offset: {x: 0.01, y: -0.86}
   serializedVersion: 2
   m_Radius: 0.31348205
+--- !u!95 &1695395024
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1695395016}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 868df37f61e22cf4bb02cc5921ea0562, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1731073175
 Prefab:
   m_ObjectHideFlags: 0
@@ -8255,6 +8469,7 @@ GameObject:
   - component: {fileID: 1858472634}
   - component: {fileID: 1858472635}
   - component: {fileID: 1858472632}
+  - component: {fileID: 1858472636}
   m_Layer: 0
   m_Name: PBody3
   m_TagString: TeamB
@@ -8400,6 +8615,7 @@ MonoBehaviour:
   routineCall: 0
   handMovement: {fileID: 1301957352}
   tapAnim: {fileID: 0}
+  playerAnim: {fileID: 1858472636}
 --- !u!58 &1858472635
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8415,6 +8631,24 @@ CircleCollider2D:
   m_Offset: {x: 0.01, y: -0.86}
   serializedVersion: 2
   m_Radius: 0.31348205
+--- !u!95 &1858472636
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1858472629}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 868df37f61e22cf4bb02cc5921ea0562, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1860648341
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,8 +16,11 @@ public class PlayerController : MonoBehaviour {
     public GameObject tapAnim;
     private float botTimer;
     private float jumpHeight;
+    public Animator playerAnim;     //If used animator
+    //public Animation playerAnim;  //If uses legacy animation
     // Use this for initialization
     void Start () {
+        //this.playerAnim["Player_Idle"].time = Random.Range(0,0.2f);
         screenWidth = Screen.width;
         jumpHeight = 8.0f;
         ballGameObject = GameObject.Find("basketball");
@@ -102,6 +105,7 @@ public class PlayerController : MonoBehaviour {
 
     public Vector3 CalculateJumpDistance(GameObject anyObject, float height)
     {
+        playerAnim.SetTrigger("isJump");
         if (jumpPlayerAudio != null)
             jumpPlayerAudio.Play();
         Vector3 jumpDis = new Vector3(0, 0, 0);

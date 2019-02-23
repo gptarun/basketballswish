@@ -73,7 +73,7 @@ public class BallController : MonoBehaviour {
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         //For Bot movement
         if (singlePlayerController.teamAMode.Equals("bot"))

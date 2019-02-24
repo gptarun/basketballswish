@@ -37,6 +37,8 @@ public class SelectTeam : MonoBehaviour {
     //Dictionary<int, TeamScript> teamData = new Dictionary<int, TeamScript>();
     string currButtonName;
     [SerializeField] SinglePlayerController singlePlayer;
+    public GameObject loadingScreen;
+    public Slider slider;
 
     void Start () {
         teamAChoice.text = teamList[indexA].ToString();
@@ -169,7 +171,7 @@ public class SelectTeam : MonoBehaviour {
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene("MainMenuScene");
+        StartCoroutine(LoadSceneAsynchronously("MainMenuScene"));
     }
 
     public Image SetFlagSpriteoFTeam(string buttonName, string gameObjectName, Sprite sprite)
@@ -178,5 +180,17 @@ public class SelectTeam : MonoBehaviour {
         imageTeam.overrideSprite = sprite;
         imageTeam.sprite = sprite;
         return imageTeam;
+    }
+
+    IEnumerator LoadSceneAsynchronously(string sceneName)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        loadingScreen.SetActive(true);
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress);
+            slider.value = progress * 30;
+            yield return null;
+        }
     }
 }

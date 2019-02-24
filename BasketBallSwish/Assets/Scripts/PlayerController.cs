@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour {
         routineCall = false;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!singlePlayerController.matchEnded){
             //For Bot movement
@@ -105,7 +105,8 @@ public class PlayerController : MonoBehaviour {
 
     public Vector3 CalculateJumpDistance(GameObject anyObject, float height)
     {
-        playerAnim.SetTrigger("isJump");
+        if (playerAnim != null)
+            playerAnim.SetTrigger("isJump");
         if (jumpPlayerAudio != null)
             jumpPlayerAudio.Play();
         Vector3 jumpDis = new Vector3(0, 0, 0);

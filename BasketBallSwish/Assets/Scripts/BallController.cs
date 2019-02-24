@@ -95,7 +95,7 @@ public class BallController : MonoBehaviour {
                     }
                 }
             }
-            if (attached)
+            if (attached && attachTagName.Equals("TeamA"))
             {
                 isThrowBotA = true;
             }
@@ -120,7 +120,7 @@ public class BallController : MonoBehaviour {
                     }
                 }
             }
-            if (attached)
+            if (attached && attachTagName.Equals("TeamB"))
             {
                 isThrowBotB = true;
             }
@@ -160,8 +160,12 @@ public class BallController : MonoBehaviour {
                         StopCoroutine("BallHoldFoul");
                     }
                 }
+                else
+                {
+                    isThrow = false;
+                }
             }
-            if (attached && touchA.phase.Equals(TouchPhase.Ended))
+            if (attached && touchA.phase.Equals(TouchPhase.Ended) )
             {
                 toThrow = true;
             }
@@ -317,6 +321,7 @@ public class BallController : MonoBehaviour {
             ballGameObject.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;
             ballGameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
             StartCoroutine("MakeBallReady");
+            attached = false;
         }
         ballGameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
         singlePlayerController.ResetPositions();

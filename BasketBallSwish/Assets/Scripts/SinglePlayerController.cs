@@ -36,6 +36,7 @@ public class SinglePlayerController : MonoBehaviour {
     public Transform ballPosition;
     Vector3 ballInitPos;
     GameObject basketball;
+    public BallController ballController;
     public AudioSource lastTick;
     private bool isTick;
     public AudioSource gameBell;
@@ -49,6 +50,7 @@ public class SinglePlayerController : MonoBehaviour {
 
     void Start () {
         basketball = GameObject.Find("basketball");
+        ballController = basketball.GetComponent<BallController>();
         pauseButtonPressed = false;
         totalQuaterCounter = OptionMenuScript.quaterCounter;
         quater.text = "Q" + quaterCounter;
@@ -143,6 +145,12 @@ public class SinglePlayerController : MonoBehaviour {
         StopCoroutine("LoseTime");
         basketball.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         basketball.GetComponent<Rigidbody2D>().angularVelocity = 0;
+        if (ballController.attached)
+        {
+            basketball.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;
+            basketball.GetComponent<Rigidbody2D>().gravityScale = 1;
+            ballController.attached = false;
+        }
         for (int i = 0; i < player.Length; i++)
         {
             player[i].transform.position = playerPosition[i];

@@ -48,12 +48,14 @@ public class TournamentController : MonoBehaviour {
     public AudioSource lastTick;
     private bool isTick;
     public AudioSource gameBell;
+    public BallControllerTournament ballController;
     // Use this for initialization
     void Start()
     {
         faces = Resources.LoadAll<Sprite>("Face");
         jersey = Resources.LoadAll<Sprite>("Team");
         basketball = GameObject.Find("basketball");
+        ballController = basketball.GetComponent<BallControllerTournament>();
         initializeSharedObjects(0, 0, "quarterFinal");
     }
 
@@ -159,6 +161,14 @@ public class TournamentController : MonoBehaviour {
 
     public void ResetPositions()
     {
+        basketball.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        basketball.GetComponent<Rigidbody2D>().angularVelocity = 0;
+        if (ballController.attached)
+        {
+            basketball.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;
+            basketball.GetComponent<Rigidbody2D>().gravityScale = 1;
+            ballController.attached = false;
+        }
         for (int i = 0; i < player.Length; i++)
         {
             player[i].transform.position = playerPosition[i];

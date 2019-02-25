@@ -41,89 +41,93 @@ public class TutorialController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (!tutorialEnded)
         {
-            Touch touch = Input.GetTouch(0);
-            if (!wait)
+            if (Input.touchCount > 0)
             {
-                if (count < 3)
+                Touch touch = Input.GetTouch(0);
+                if (!wait)
                 {
-                    if (tutorialMsgs[count].Contains("Hello, Welcome"))
+                    if (count < 3)
                     {
-                        Jump();
-                        basketball.SetActive(false);
-                    }
-                    else if (tutorialMsgs[count].Contains("Good Job! Now tap"))
-                    {
-                        Jump();
-                        rotate = true;
-                        basketball.SetActive(false);
-                        if (touch.phase.Equals(TouchPhase.Began))
+                        if (tutorialMsgs[count].Contains("Hello, Welcome"))
                         {
-                            antiRotate = false;
+                            Jump();
+                            basketball.SetActive(false);
                         }
-                        if (touch.phase.Equals(TouchPhase.Ended))
+                        else if (tutorialMsgs[count].Contains("Good Job! Now tap"))
                         {
-                            antiRotate = true;
+                            Jump();
+                            rotate = true;
+                            basketball.SetActive(false);
+                            if (touch.phase.Equals(TouchPhase.Began))
+                            {
+                                antiRotate = false;
+                            }
+                            if (touch.phase.Equals(TouchPhase.Ended))
+                            {
+                                antiRotate = true;
+                            }
                         }
+                        else if (tutorialMsgs[count].Contains("Excellent! To thow"))
+                        {
+                            Jump();
+                            rotate = true;
+                            //basketball.SetActive(true);
+                        }
+                        count++;
+                        StartCoroutine(WaitForNextTutorial());
+                        wait = true;
                     }
-                    else if (tutorialMsgs[count].Contains("Excellent! To thow"))
+                    else
                     {
-                        Jump();
-                        rotate = true;
-                        //basketball.SetActive(true);
+                        tutorialCompletion.SetActive(true);
+                        tutorialEnded = true;
+                        messageScreen.SetActive(false);
                     }
-                    count++;
-                    StartCoroutine(WaitForNextTutorial());
-                    wait = true;
                 }
-                else
+                if (tutorialMsgs[count - 1].Contains("Good Job! Now tap"))
                 {
-                    tutorialCompletion.SetActive(true);
-                    messageScreen.SetActive(false);
+                    if (touch.phase.Equals(TouchPhase.Began))
+                    {
+                        antiRotate = false;
+                    }
+                    if (touch.phase.Equals(TouchPhase.Ended))
+                    {
+                        antiRotate = true;
+                    }
+                }
+                if (tutorialMsgs[count - 1].Contains("Excellent! To thow"))
+                {
+                    if (touch.phase.Equals(TouchPhase.Began))
+                    {
+                        antiRotate = false;
+                        attached = true;
+                    }
+                    if (touch.phase.Equals(TouchPhase.Ended))
+                    {
+                        antiRotate = true;
+                        basketball.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;
+                        basketball.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(GameObject.Find("Basket_Team2"), 6);// launch the projectile!
+                        basketball.GetComponent<Rigidbody2D>().gravityScale = 1;
+                        StartCoroutine(MakeBallReady());
+                        attached = false;
+                    }
+                    if (attached)
+                    {
+                        basketball.transform.position = handPivot.transform.position;
+                        basketball.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        basketball.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)2;
+                        basketball.GetComponent<Rigidbody2D>().gravityScale = 0;
+                        basketball.GetComponent<CircleCollider2D>().isTrigger = true;
+                    }
                 }
             }
-            if (tutorialMsgs[count-1].Contains("Good Job! Now tap"))
+
+            if (rotate)
             {
-                if (touch.phase.Equals(TouchPhase.Began))
-                {
-                    antiRotate = false;
-                }
-                if (touch.phase.Equals(TouchPhase.Ended))
-                {
-                    antiRotate = true;
-                }
+                RotateHand();
             }
-            if (tutorialMsgs[count - 1].Contains("Excellent! To thow"))
-            {
-                if (touch.phase.Equals(TouchPhase.Began))
-                {
-                    antiRotate = false;
-                    attached = true;
-                }
-                if (touch.phase.Equals(TouchPhase.Ended))
-                {
-                    antiRotate = true;
-                    basketball.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;
-                    basketball.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(GameObject.Find("Basket_Team2"), 6);// launch the projectile!
-                    basketball.GetComponent<Rigidbody2D>().gravityScale = 1;
-                    StartCoroutine(MakeBallReady());
-                    attached = false;
-                }
-                if (attached)
-                {
-                    basketball.transform.position = handPivot.transform.position;
-                    basketball.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    basketball.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)2;
-                    basketball.GetComponent<Rigidbody2D>().gravityScale = 0;
-                    basketball.GetComponent<CircleCollider2D>().isTrigger = true;
-                }
-            }
-        }
-        
-        if (rotate)
-        {
-            RotateHand();
         }
     }
 
@@ -169,7 +173,10 @@ public class TutorialController : MonoBehaviour {
             yield return new WaitForSeconds(2f);
         }
         wait = false;
-        tutorial1.SetText(tutorialMsgs[count]);
+        if (count < 3)
+        {
+            tutorial1.SetText(tutorialMsgs[count]);
+        }
         if (count == 2)
         {
             basketball.SetActive(true);

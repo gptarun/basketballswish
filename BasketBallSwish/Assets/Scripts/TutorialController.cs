@@ -176,6 +176,7 @@ public class TutorialController : MonoBehaviour {
         if (count < 3)
         {
             tutorial1.SetText(tutorialMsgs[count]);
+            Debug.Log("");
         }
         if (count == 2)
         {

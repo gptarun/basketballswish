@@ -11,6 +11,7 @@ public class SelectTeam : MonoBehaviour {
     private List<string> teamList = new List<string>(new string[] { "Africa", "Argentina", "Australia", "Brazil", "China", "France", "India", "Mexico", "Philippines", "Russia", "Serbia", "Singapore", "Spain", "Thailand", "USA", "Yugoslavia"});
     private readonly List<string> teamListShort = new List<string>(new string[] { "Afr", "Arg", "Aus", "Bra", "Chi", "Fra", "Ind", "Mex", "Phi", "Rus", "Ser", "Sin", "Spa", "Tha", "Usa", "Yug" });
     private readonly List<int> teamRating = new List<int>(new int[] { 2,3,2,3,2,3,2,1,2,3,2,2,3,2,3,3 });
+    private readonly List<bool> teamLocks = new List<bool>(new bool[] { false, true, false, true, false, true, false, false, false, true, false, false, true, false, true, true});
     //Choosing Teams
     [SerializeField] public TextMeshProUGUI teamAChoice;
     [SerializeField] public TextMeshProUGUI teamBChoice;
@@ -23,8 +24,8 @@ public class SelectTeam : MonoBehaviour {
     private int modeCounterB = 1;
     //Chaning sprite AI to Human and vice-versa
     public Sprite[] mode;
-    private int indexA = 9;
-    private int indexB = 9;
+    private int indexA = 8;
+    private int indexB = 10;
     //Calculating stars
     public GameObject[] teamAStar;
     public GameObject[] teamBStar;
@@ -40,10 +41,13 @@ public class SelectTeam : MonoBehaviour {
     public GameObject loadingScreen;
     public Slider slider;
     private Dictionary<string, TeamStatus> teamDict;
+    public Image lockA;
+    public Image lockB;
+    public Button playButton;
 
     void Start () {
         teamAChoice.text = teamList[indexA].ToString();
-        teamBChoice.text = teamList[indexA].ToString();
+        teamBChoice.text = teamList[indexB].ToString();
         changeModeA.image.sprite = mode[modeCounterA];
         changeModeB.image.sprite = mode[modeCounterB];
         flags = Resources.LoadAll<Sprite>("Flags");
@@ -54,11 +58,11 @@ public class SelectTeam : MonoBehaviour {
         {
             if (teamRating[i]==3)
             {
-                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], true, teamRating[i]));
+                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], teamLocks[i], teamRating[i]));
             }
             else
             {
-                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], false, teamRating[i]));
+                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], teamLocks[i], teamRating[i]));
             }
 
         }
@@ -79,27 +83,39 @@ public class SelectTeam : MonoBehaviour {
         teamAChoice.text = teamList[indexA].ToString();
         RankCalculation(indexA, teamAStar);
         SetFlagoFTeam(indexA, teamAFlag);
-        if (teamDict[teamList[indexA]].LockedStatus == true)
+        if (teamDict[teamList[indexA]].LockedStatus == true)          //Locking the teams  
         {
-            //lock the team
+            lockA.enabled = true;
+            playButton.interactable = false;
             Debug.Log("RightA"+teamDict[teamList[indexA]].TeamName);
+        }
+        else
+        {
+            playButton.interactable = true;
+            lockA.enabled = false;
         }
     }
 
     public void LeftButtonA()
     {
         indexA--;
-        if (indexA <= 0)
+        if (indexA < 0)
         {
             indexA = teamList.Count - 1;
         }
         teamAChoice.text = teamList[indexA].ToString();
         RankCalculation(indexA, teamAStar);
         SetFlagoFTeam(indexA, teamAFlag);
-        if (teamDict[teamList[indexA]].LockedStatus==true)
+        if (teamDict[teamList[indexA]].LockedStatus==true)          //Locking the teams
         {
-            //lock the team
+            lockA.enabled = true;
+            playButton.interactable = false;
             Debug.Log("leftA"+teamDict[teamList[indexA]].TeamName);
+        }
+        else
+        {
+            playButton.interactable = true;
+            lockA.enabled = false;
         }
     }
 
@@ -113,26 +129,38 @@ public class SelectTeam : MonoBehaviour {
         teamBChoice.text = teamList[indexB].ToString();
         RankCalculation(indexB, teamBStar);
         SetFlagoFTeam(indexB, teamBFlag);
-        if (teamDict[teamList[indexB]].LockedStatus == true)
+        if (teamDict[teamList[indexB]].LockedStatus == true)            //Locking the teams
         {
-            //lock the team
+            lockB.enabled = true;
+            playButton.interactable = false;
             Debug.Log("RightB" + teamDict[teamList[indexB]].TeamName);
+        }
+        else
+        {
+            playButton.interactable = true;
+            lockB.enabled = false;
         }
     }
     public void LeftButtonB()
     {
         indexB--;
-        if (indexB <= 0)
+        if (indexB < 0)
         {
             indexB = teamList.Count - 1;
         }
         teamBChoice.text = teamList[indexB].ToString();
         RankCalculation(indexB, teamBStar);
         SetFlagoFTeam(indexB, teamBFlag);
-        if (teamDict[teamList[indexB]].LockedStatus == true)
+        if (teamDict[teamList[indexB]].LockedStatus == true)        //Locking the teams
         {
-            //lock the team
+            lockB.enabled = true;
+            playButton.interactable = false;
             Debug.Log("leftB" + teamDict[teamList[indexB]].TeamName);
+        }
+        else
+        {
+            playButton.interactable = true;
+            lockB.enabled = false;
         }
     }
     public void SelectModeOnA()

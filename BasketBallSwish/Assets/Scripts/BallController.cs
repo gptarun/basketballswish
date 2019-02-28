@@ -37,6 +37,9 @@ public class BallController : MonoBehaviour {
     private bool toThrow=false;
     public GameObject shotClockAnim;
     private float botTimer;
+    public Animator hoopLeft;
+    public Animator hoopRight;
+    private float lastContactXpos;
 
     void Start()
     {
@@ -70,7 +73,8 @@ public class BallController : MonoBehaviour {
         else
         {
             botTimer = 0.85f;
-        }
+        }        
+        lastContactXpos = 0f;
     }
 
     void Update()
@@ -207,18 +211,34 @@ public class BallController : MonoBehaviour {
                 if (scoreAudio != null)
                     scoreAudio.Play();
                 if(swishAudio != null)                
-                    swishAudio.Play();                
+                    swishAudio.Play();                               
+                hoopLeft.SetTrigger("isScoreLeft");
+                if (lastContactXpos > 0)
+                {                    
+                    singlePlayerController.scoreB = singlePlayerController.scoreB + 3;
+                }
+                else
+                {
+                    singlePlayerController.scoreB = singlePlayerController.scoreB + 2;
+                }
                 StartCoroutine("MakeUserScore");
-                singlePlayerController.scoreB = singlePlayerController.scoreB + 3;
             }
             if (col.transform.parent.tag.Equals("BasketB"))
             {
                 if (scoreAudio != null)
                     scoreAudio.Play();
                 if (swishAudio != null)
-                    swishAudio.Play();
+                    swishAudio.Play();                
+                hoopRight.SetTrigger("isScoreRight");
+                if (lastContactXpos < 0)
+                {
+                    singlePlayerController.scoreA = singlePlayerController.scoreA + 3;
+                }
+                else
+                {
+                    singlePlayerController.scoreA = singlePlayerController.scoreB + 2;
+                }
                 StartCoroutine("MakeUserScore");
-                singlePlayerController.scoreA = singlePlayerController.scoreA + 3;
             }
             upperBound = false;
         }
@@ -243,6 +263,10 @@ public class BallController : MonoBehaviour {
         {
             AudioClip clip = ballClip[1];
             playAudio.PlayOneShot(clip);
+        }
+        if (collision.transform.name.Contains("Body") || collision.transform.name.Contains("Hand"))
+        {
+            lastContactXpos = collision.transform.position.x;
         }
     }
 
@@ -320,7 +344,7 @@ public class BallController : MonoBehaviour {
         {
             ballGameObject.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;
             ballGameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
-            StartCoroutine("MakeBallReady");
+            StartCoroutine(MakeBallReady());
             attached = false;
         }
         ballGameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
@@ -345,10 +369,10 @@ public class BallController : MonoBehaviour {
     }
 
     IEnumerator MakeUserScore()
-    {        
-        singlePlayerController.ResetPositions();
+    {
         scoreAnim.SetActive(true);
         yield return new WaitForSeconds(1);
+        singlePlayerController.ResetPositions();             
         scoreAnim.SetActive(false);
     }
 

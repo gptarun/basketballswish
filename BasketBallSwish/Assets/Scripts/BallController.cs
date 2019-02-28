@@ -214,11 +214,13 @@ public class BallController : MonoBehaviour {
                     swishAudio.Play();                               
                 hoopLeft.SetTrigger("isScoreLeft");
                 if (lastContactXpos > 0)
-                {                    
+                {
+                    Debug.Log(lastContactXpos + " ?? 0");
                     singlePlayerController.scoreB = singlePlayerController.scoreB + 3;
                 }
                 else
                 {
+                    Debug.Log(lastContactXpos + " ?? 0");
                     singlePlayerController.scoreB = singlePlayerController.scoreB + 2;
                 }
                 StartCoroutine("MakeUserScore");
@@ -232,10 +234,12 @@ public class BallController : MonoBehaviour {
                 hoopRight.SetTrigger("isScoreRight");
                 if (lastContactXpos < 0)
                 {
+                    Debug.Log(lastContactXpos + " ?? 0");
                     singlePlayerController.scoreA = singlePlayerController.scoreA + 3;
                 }
-                else
+                else                    
                 {
+                    Debug.Log(lastContactXpos + " ?? 0");
                     singlePlayerController.scoreA = singlePlayerController.scoreB + 2;
                 }
                 StartCoroutine("MakeUserScore");

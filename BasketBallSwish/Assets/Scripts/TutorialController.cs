@@ -36,6 +36,10 @@ public class TutorialController : MonoBehaviour {
         basketball.SetActive(false);
         handPivot = GameObject.Find("handPivot");
         attached = false;
+        if (GameObject.Find("MenuBg") != null)
+        {
+            Destroy(GameObject.Find("MenuBg"));
+        }
     }
 
     // Update is called once per frame

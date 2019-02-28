@@ -66,14 +66,8 @@ public class SelectTeam : MonoBehaviour {
             }
             else
             {
-                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], teamLocks[i], teamRating[i]));
-                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], true, teamRating[i]));
+                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], teamLocks[i], teamRating[i]));                
                 gameDataEditor.gameData.teamData[i] = new TeamStatus(teamList[i], teamListShort[i], true, teamRating[i]);
-            }
-            else
-            {
-                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], false, teamRating[i]));
-                gameDataEditor.gameData.teamData[i] = new TeamStatus(teamList[i], teamListShort[i], false, teamRating[i]);
             }
         }
         Debug.Log(gameDataEditor.gameData.teamData[0]);

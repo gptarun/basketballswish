@@ -44,6 +44,7 @@ public class SelectTeam : MonoBehaviour {
     public Image lockA;
     public Image lockB;
     public Button playButton;
+    private GameDataEditor gameDataEditor;
 
     void Start () {
         teamAChoice.text = teamList[indexA].ToString();
@@ -54,6 +55,9 @@ public class SelectTeam : MonoBehaviour {
         modeA = "human";
         modeB = "bot";
         teamDict = new Dictionary<string, TeamStatus>();
+        gameDataEditor = new GameDataEditor();
+        gameDataEditor.gameData = new GameData();
+        gameDataEditor.gameData.teamData = new TeamStatus[16];
         for (int i=0; i < teamList.Capacity; i++)
         {
             if (teamRating[i]==3)
@@ -63,9 +67,18 @@ public class SelectTeam : MonoBehaviour {
             else
             {
                 teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], teamLocks[i], teamRating[i]));
+                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], true, teamRating[i]));
+                gameDataEditor.gameData.teamData[i] = new TeamStatus(teamList[i], teamListShort[i], true, teamRating[i]);
             }
-
+            else
+            {
+                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], false, teamRating[i]));
+                gameDataEditor.gameData.teamData[i] = new TeamStatus(teamList[i], teamListShort[i], false, teamRating[i]);
+            }
         }
+        Debug.Log(gameDataEditor.gameData.teamData[0]);
+        Debug.Log(gameDataEditor.gameData.teamData[0].TeamName);
+        gameDataEditor.SaveGameData();
     }
 	
 	// Update is called once per frame

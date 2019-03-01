@@ -45,6 +45,7 @@ public class SelectTeam : MonoBehaviour {
     public Image lockB;
     public Button playButton;
     private GameDataEditor gameDataEditor;
+    private GameData gameData;
 
     void Start () {
         teamAChoice.text = teamList[indexA].ToString();
@@ -56,23 +57,11 @@ public class SelectTeam : MonoBehaviour {
         modeB = "bot";
         teamDict = new Dictionary<string, TeamStatus>();
         gameDataEditor = new GameDataEditor();
-        gameDataEditor.gameData = new GameData();
-        gameDataEditor.gameData.teamData = new TeamStatus[16];
-        for (int i=0; i < teamList.Capacity; i++)
+        gameData = gameDataEditor.LoadGameData(); // loading the data from file
+        for (int i=0; i < gameData.teamData.Length; i++)
         {
-            if (teamRating[i]==3)
-            {
-                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], teamLocks[i], teamRating[i]));
-            }
-            else
-            {
-                teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], teamLocks[i], teamRating[i]));                
-                gameDataEditor.gameData.teamData[i] = new TeamStatus(teamList[i], teamListShort[i], true, teamRating[i]);
-            }
+            teamDict.Add(gameData.teamData[i].TeamName, gameData.teamData[i]); // setting the data in the dictionary which was fetched from file
         }
-        Debug.Log(gameDataEditor.gameData.teamData[0]);
-        Debug.Log(gameDataEditor.gameData.teamData[0].TeamName);
-        gameDataEditor.SaveGameData();
     }
 	
 	// Update is called once per frame
@@ -94,7 +83,6 @@ public class SelectTeam : MonoBehaviour {
         {
             lockA.enabled = true;
             playButton.interactable = false;
-            Debug.Log("RightA"+teamDict[teamList[indexA]].TeamName);
         }
         else
         {
@@ -117,7 +105,6 @@ public class SelectTeam : MonoBehaviour {
         {
             lockA.enabled = true;
             playButton.interactable = false;
-            Debug.Log("leftA"+teamDict[teamList[indexA]].TeamName);
         }
         else
         {
@@ -140,7 +127,6 @@ public class SelectTeam : MonoBehaviour {
         {
             lockB.enabled = true;
             playButton.interactable = false;
-            Debug.Log("RightB" + teamDict[teamList[indexB]].TeamName);
         }
         else
         {
@@ -162,7 +148,6 @@ public class SelectTeam : MonoBehaviour {
         {
             lockB.enabled = true;
             playButton.interactable = false;
-            Debug.Log("leftB" + teamDict[teamList[indexB]].TeamName);
         }
         else
         {

@@ -1,0 +1,100 @@
+{
+    "Teams": [
+        {
+            "TeamName": "Africa",
+            "ShortName": "Afr",
+            "LockedStatus": false,
+            "TeamRating": 2
+        },
+        {
+            "TeamName": "Argentina",
+            "ShortName": "Arg",
+            "LockedStatus": true,
+            "TeamRating": 3
+        },
+        {
+            "TeamName": "Australia",
+            "ShortName": "Aus",
+            "LockedStatus": false,
+            "TeamRating": 2
+        },
+        {
+            "TeamName": "Brazil",
+            "ShortName": "Bra",
+            "LockedStatus": true,
+            "TeamRating": 3
+        },
+        {
+            "TeamName": "China",
+            "ShortName": "Chi",
+            "LockedStatus": false,
+            "TeamRating": 2
+        },
+        {
+            "TeamName": "France",
+            "ShortName": "Fra",
+            "LockedStatus": true,
+            "TeamRating": 3
+        },
+        {
+            "TeamName": "India",
+            "ShortName": "Ind",
+            "LockedStatus": false,
+            "TeamRating": 2
+        },
+        {
+            "TeamName": "Mexico",
+            "ShortName": "Mex",
+            "LockedStatus": false,
+            "TeamRating": 1
+        },
+        {
+            "TeamName": "Philippines",
+            "ShortName": "Phi",
+            "LockedStatus": false,
+            "TeamRating": 2
+        },
+        {
+            "TeamName": "Russia",
+            "ShortName": "Rus",
+            "LockedStatus": true,
+            "TeamRating": 3
+        },
+        {
+            "TeamName": "Serbia",
+            "ShortName": "Ser",
+            "LockedStatus": false,
+            "TeamRating": 2
+        },
+        {
+            "TeamName": "Singapore",
+            "ShortName": "Sin",
+            "LockedStatus": false,
+            "TeamRating": 2
+        },
+        {
+            "TeamName": "Spain",
+            "ShortName": "Spa",
+            "LockedStatus": true,
+            "TeamRating": 3
+        },
+        {
+            "TeamName": "Thailand",
+            "ShortName": "Tha",
+            "LockedStatus": false,
+            "TeamRating": 2
+        },
+        {
+            "TeamName": "USA",
+            "ShortName": "Usa",
+            "LockedStatus": true,
+            "TeamRating": 3
+        },
+        {
+            "TeamName": "Yugoslavia",
+            "ShortName": "Yug",
+            "LockedStatus": true,
+            "TeamRating": 3
+        }
+    ]
+}

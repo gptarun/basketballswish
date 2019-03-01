@@ -38,19 +38,16 @@ public class GameDataEditor : EditorWindow {
         }
     }
 
-    private void LoadGameData()
+    public GameData LoadGameData()
     {
         string filePath = Application.dataPath + gameDataProjectFilePath;
-
+        gameData = new GameData();
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
-            gameData = JsonUtility.FromJson<GameData>(dataAsJson);
+            gameData.teamData = JSonHelper.FromJson<TeamStatus>(dataAsJson);
         }
-        else
-        {
-            gameData = new GameData();
-        }
+        return gameData;
     }
 
     public void SaveGameData()

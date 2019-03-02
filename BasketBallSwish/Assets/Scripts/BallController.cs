@@ -37,6 +37,9 @@ public class BallController : MonoBehaviour {
     private bool toThrow=false;
     public GameObject shotClockAnim;
     private float botTimer;
+    public Animator hoopLeft;
+    public Animator hoopRight;
+    private float lastContactXpos;
 
     void Start()
     {
@@ -207,7 +210,6 @@ public class BallController : MonoBehaviour {
                 if (scoreAudio != null)
                     scoreAudio.Play();
                 if(swishAudio != null)                
-<<<<<<< HEAD
                     swishAudio.Play();                               
                 hoopLeft.SetTrigger("isScoreLeft");
                 if (lastContactXpos > 0)
@@ -220,9 +222,7 @@ public class BallController : MonoBehaviour {
                     Debug.Log(lastContactXpos + " ?? 0");
                     singlePlayerController.scoreB = singlePlayerController.scoreB + 2;
                 }
-=======
                     swishAudio.Play();                
->>>>>>> parent of 0d242b8... Added hoop animation.
                 StartCoroutine("MakeUserScore");
                 singlePlayerController.scoreB = singlePlayerController.scoreB + 3;
             }
@@ -231,7 +231,6 @@ public class BallController : MonoBehaviour {
                 if (scoreAudio != null)
                     scoreAudio.Play();
                 if (swishAudio != null)
-<<<<<<< HEAD
                     swishAudio.Play();                
                 hoopRight.SetTrigger("isScoreRight");
                 if (lastContactXpos < 0)
@@ -244,9 +243,8 @@ public class BallController : MonoBehaviour {
                     Debug.Log(lastContactXpos + " ?? 0");
                     singlePlayerController.scoreA = singlePlayerController.scoreB + 2;
                 }
-=======
+                if (swishAudio != null)
                     swishAudio.Play();
->>>>>>> parent of 0d242b8... Added hoop animation.
                 StartCoroutine("MakeUserScore");
                 singlePlayerController.scoreA = singlePlayerController.scoreA + 3;
             }

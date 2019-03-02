@@ -44,8 +44,7 @@ public class SelectTeam : MonoBehaviour {
     public Image lockA;
     public Image lockB;
     public Button playButton;
-    private GameDataEditor gameDataEditor;
-    private GameData gameData;
+    public TeamDataController teamDataController;
 
     void Start () {
         teamAChoice.text = teamList[indexA].ToString();
@@ -56,11 +55,11 @@ public class SelectTeam : MonoBehaviour {
         modeA = "human";
         modeB = "bot";
         teamDict = new Dictionary<string, TeamStatus>();
-        gameDataEditor = new GameDataEditor();
-        gameData = gameDataEditor.LoadGameData(); // loading the data from file
-        for (int i=0; i < gameData.teamData.Length; i++)
+        teamDataController = new TeamDataController();
+        teamDataController.LoadGameData(); // loading the data from file
+        for (int i=0; i < teamDataController.teamData.Length; i++)
         {
-            teamDict.Add(gameData.teamData[i].TeamName, gameData.teamData[i]); // setting the data in the dictionary which was fetched from file
+            teamDict.Add(teamDataController.teamData[i].TeamName, teamDataController.teamData[i]); // setting the data in the dictionary which was fetched from file
         }
     }
 	

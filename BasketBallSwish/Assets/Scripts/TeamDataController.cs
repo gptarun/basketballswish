@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class TeamDataController : MonoBehaviour {
+    
+    public TeamStatus[] teamData;
 
-    private TeamStatus[] teamData;
-
-    private string gameDataFileName = "teamData.json";
+    private string gameDataProjectFilePath = "/StreamingAssets/teamData.json";
 
     void Start()
     {
@@ -38,28 +38,30 @@ public class TeamDataController : MonoBehaviour {
                 teamData[i] = team;
             }
         }
+        SaveGameData();
     }
 
-    private void LoadGameData()
+    //fetch the data from JSON file
+    public void LoadGameData()
     {
-        // Path.Combine combines strings into a file path
-        // Application.StreamingAssets points to Assets/StreamingAssets in the Editor, and the StreamingAssets folder in a build
-        string filePath = Path.Combine(Application.streamingAssetsPath, gameDataFileName);
-
+        string filePath = Application.dataPath + gameDataProjectFilePath;
         if (File.Exists(filePath))
         {
-            // Read the json from the file into a string
             string dataAsJson = File.ReadAllText(filePath);
-            // Pass the json to JsonUtility, and tell it to create a GameData object from it
-            GameData loadedData = JsonUtility.FromJson<GameData>(dataAsJson);
-
-            // Retrieve the allRoundData property of loadedData
-            teamData = loadedData.teamData;
+            teamData = JSonHelper.FromJson<TeamStatus>(dataAsJson);
         }
         else
         {
             Debug.LogError("Cannot load game data!");
         }
     }
-    
+
+    //save the data from JSON file
+    public void SaveGameData()
+    {
+        string dataAsJson = JSonHelper.ToJson(teamData, true);
+
+        string filePath = Application.dataPath + gameDataProjectFilePath;
+        File.WriteAllText(filePath, dataAsJson);
+    }
 }

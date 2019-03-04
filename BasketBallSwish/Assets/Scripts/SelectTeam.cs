@@ -61,11 +61,21 @@ public class SelectTeam : MonoBehaviour {
         {
             teamDict.Add(teamDataController.teamData[i].TeamName, teamDataController.teamData[i]); // setting the data in the dictionary which was fetched from file
         }
+        //teamDataController.EditTeamData(new TeamStatus("Africa","Afr", true,3)); //For testing the data is loading from JSON file in updation at runtime
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        //For the updation of data from JSON file at run time if there are any changes in the data file
+        if (teamDataController.uncheckedData)
+        {
+            teamDataController.LoadGameData(); // loading the data from file
+            teamDict.Clear();
+            for (int i = 0; i < teamDataController.teamData.Length; i++)
+            {
+                teamDict.Add(teamDataController.teamData[i].TeamName, teamDataController.teamData[i]); // setting the data in the dictionary which was fetched from file
+            }
+        }
 	}
 
     public void RighButtonA()
@@ -76,7 +86,7 @@ public class SelectTeam : MonoBehaviour {
             indexA = 0;
         }
         teamAChoice.text = teamList[indexA].ToString();
-        RankCalculation(indexA, teamAStar);
+        RankCalculationDict(teamDict[teamList[indexA]].TeamRating, teamAStar);
         SetFlagoFTeam(indexA, teamAFlag);
         if (teamDict[teamList[indexA]].LockedStatus == true)          //Locking the teams  
         {
@@ -98,7 +108,7 @@ public class SelectTeam : MonoBehaviour {
             indexA = teamList.Count - 1;
         }
         teamAChoice.text = teamList[indexA].ToString();
-        RankCalculation(indexA, teamAStar);
+        RankCalculationDict(teamDict[teamList[indexA]].TeamRating, teamAStar);
         SetFlagoFTeam(indexA, teamAFlag);
         if (teamDict[teamList[indexA]].LockedStatus==true)          //Locking the teams
         {
@@ -120,7 +130,7 @@ public class SelectTeam : MonoBehaviour {
             indexB = 0;
         }
         teamBChoice.text = teamList[indexB].ToString();
-        RankCalculation(indexB, teamBStar);
+        RankCalculationDict(teamDict[teamList[indexB]].TeamRating, teamBStar);
         SetFlagoFTeam(indexB, teamBFlag);
         if (teamDict[teamList[indexB]].LockedStatus == true)            //Locking the teams
         {
@@ -141,7 +151,7 @@ public class SelectTeam : MonoBehaviour {
             indexB = teamList.Count - 1;
         }
         teamBChoice.text = teamList[indexB].ToString();
-        RankCalculation(indexB, teamBStar);
+        RankCalculationDict(teamDict[teamList[indexB]].TeamRating, teamBStar);
         SetFlagoFTeam(indexB, teamBFlag);
         if (teamDict[teamList[indexB]].LockedStatus == true)        //Locking the teams
         {
@@ -191,6 +201,16 @@ public class SelectTeam : MonoBehaviour {
             gameObj[i].SetActive(true);
         }        
     }
+
+    public void RankCalculationDict(int value, GameObject[] gameObj)
+    {
+        ResetRank(gameObj);
+        for (int i = 0; i < value; i++)
+        {
+            gameObj[i].SetActive(true);
+        }
+    }
+
     public void ResetRank(GameObject[] gameObj)
     {
         for (int i = 0; i < 3; i++)

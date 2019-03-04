@@ -7,14 +7,15 @@ using UnityEngine.SceneManagement;
 public class TeamDataController : MonoBehaviour {
     
     public TeamStatus[] teamData;
-
+    public bool uncheckedData;
     private string gameDataProjectFilePath = "/StreamingAssets/teamData.json";
 
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-
+        
         LoadGameData();
+        uncheckedData = false;
     }
 
     public TeamStatus GetTeamData(string teamName)
@@ -49,6 +50,7 @@ public class TeamDataController : MonoBehaviour {
         {
             string dataAsJson = File.ReadAllText(filePath);
             teamData = JSonHelper.FromJson<TeamStatus>(dataAsJson);
+            uncheckedData = false;
         }
         else
         {
@@ -63,5 +65,6 @@ public class TeamDataController : MonoBehaviour {
 
         string filePath = Application.dataPath + gameDataProjectFilePath;
         File.WriteAllText(filePath, dataAsJson);
+        uncheckedData = true;
     }
 }

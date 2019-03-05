@@ -5,13 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System;
 
 public class SelectTeam : MonoBehaviour {
 
     private List<string> teamList = new List<string>(new string[] { "Africa", "Argentina", "Australia", "Brazil", "China", "France", "India", "Mexico", "Philippines", "Russia", "Serbia", "Singapore", "Spain", "Thailand", "USA", "Yugoslavia"});
     private readonly List<string> teamListShort = new List<string>(new string[] { "Afr", "Arg", "Aus", "Bra", "Chi", "Fra", "Ind", "Mex", "Phi", "Rus", "Ser", "Sin", "Spa", "Tha", "Usa", "Yug" });
     private readonly List<int> teamRating = new List<int>(new int[] { 2,3,2,3,2,3,2,1,2,3,2,2,3,2,3,3 });
-    private readonly List<bool> teamLocks = new List<bool>(new bool[] { false, true, false, true, false, true, false, false, false, true, false, false, true, false, true, true});
+    //private readonly List<bool> teamLocks = new List<bool>(new bool[] { false, true, false, true, false, true, false, false, false, true, false, false, true, false, true, true});
     //Choosing Teams
     [SerializeField] public TextMeshProUGUI teamAChoice;
     [SerializeField] public TextMeshProUGUI teamBChoice;
@@ -88,14 +89,13 @@ public class SelectTeam : MonoBehaviour {
         teamAChoice.text = teamList[indexA].ToString();
         RankCalculationDict(teamDict[teamList[indexA]].TeamRating, teamAStar);
         SetFlagoFTeam(indexA, teamAFlag);
+        LockPlayButton(teamDict[teamList[indexA]].LockedStatus, teamDict[teamList[indexB]].LockedStatus);
         if (teamDict[teamList[indexA]].LockedStatus == true)          //Locking the teams  
         {
             lockA.enabled = true;
-            playButton.interactable = false;
         }
         else
         {
-            playButton.interactable = true;
             lockA.enabled = false;
         }
     }
@@ -110,14 +110,13 @@ public class SelectTeam : MonoBehaviour {
         teamAChoice.text = teamList[indexA].ToString();
         RankCalculationDict(teamDict[teamList[indexA]].TeamRating, teamAStar);
         SetFlagoFTeam(indexA, teamAFlag);
+        LockPlayButton(teamDict[teamList[indexA]].LockedStatus, teamDict[teamList[indexB]].LockedStatus);
         if (teamDict[teamList[indexA]].LockedStatus==true)          //Locking the teams
         {
             lockA.enabled = true;
-            playButton.interactable = false;
         }
         else
         {
-            playButton.interactable = true;
             lockA.enabled = false;
         }
     }
@@ -132,14 +131,13 @@ public class SelectTeam : MonoBehaviour {
         teamBChoice.text = teamList[indexB].ToString();
         RankCalculationDict(teamDict[teamList[indexB]].TeamRating, teamBStar);
         SetFlagoFTeam(indexB, teamBFlag);
+        LockPlayButton(teamDict[teamList[indexA]].LockedStatus, teamDict[teamList[indexB]].LockedStatus);
         if (teamDict[teamList[indexB]].LockedStatus == true)            //Locking the teams
         {
             lockB.enabled = true;
-            playButton.interactable = false;
         }
         else
         {
-            playButton.interactable = true;
             lockB.enabled = false;
         }
     }
@@ -153,14 +151,13 @@ public class SelectTeam : MonoBehaviour {
         teamBChoice.text = teamList[indexB].ToString();
         RankCalculationDict(teamDict[teamList[indexB]].TeamRating, teamBStar);
         SetFlagoFTeam(indexB, teamBFlag);
+        LockPlayButton(teamDict[teamList[indexA]].LockedStatus, teamDict[teamList[indexB]].LockedStatus);
         if (teamDict[teamList[indexB]].LockedStatus == true)        //Locking the teams
         {
             lockB.enabled = true;
-            playButton.interactable = false;
         }
         else
         {
-            playButton.interactable = true;
             lockB.enabled = false;
         }
     }
@@ -265,6 +262,19 @@ public class SelectTeam : MonoBehaviour {
             float progress = Mathf.Clamp01(operation.progress);
             slider.value = progress * 30;
             yield return null;
+        }
+    }
+
+    private void LockPlayButton(bool lockedStatusA, bool lockedStatusB)
+    {
+        Debug.Log("A:" + lockedStatusA + " B:" + lockedStatusB);
+        if (!lockedStatusA && !lockedStatusB)
+        {
+            playButton.interactable = true;
+        }
+        else
+        {
+            playButton.interactable = false;
         }
     }
 }

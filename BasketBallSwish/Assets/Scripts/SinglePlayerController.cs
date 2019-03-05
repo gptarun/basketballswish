@@ -41,6 +41,7 @@ public class SinglePlayerController : MonoBehaviour {
     private bool isTick;
     public AudioSource gameBell;
     public bool matchEnded;
+    public GameObject quaterBreak;  //Show pause window after every quater
     /// <summary>
     ///These varaibles will be used for player creation dynamically a
     /// </summary>
@@ -105,11 +106,19 @@ public class SinglePlayerController : MonoBehaviour {
             }
             else if(qTimer < 1 && quaterCounter != totalQuaterCounter)
             {
+                pauseButtonPressed = true;          //Showing next quater pause window also
+                if(GameObject.Find("BallShadow(Clone)") != null)
+                {
+                    Debug.Log("Deleted");
+                    Destroy(GameObject.Find("BallShadow(Clone)"));
+                }
+                Time.timeScale = 0f;
                 qTimer = OptionMenuScript.quaterDuration[OptionMenuScript.quaterTimerCounter];
                 quaterCounter++;
-                quater.text = "Q" + quaterCounter;
                 isTick = true;
-                StartCoroutine(MakeUserReady());
+                quaterBreak.SetActive(true);                
+                quater.text = "Q" + quaterCounter;                                
+                StartCoroutine(MakeUserReady());                                
             }
             else
             {
@@ -145,6 +154,7 @@ public class SinglePlayerController : MonoBehaviour {
         StopCoroutine("LoseTime");
         basketball.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         basketball.GetComponent<Rigidbody2D>().angularVelocity = 0;
+        basketball.GetComponent<CircleCollider2D>().isTrigger = false;
         if (ballController.attached)
         {
             basketball.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;

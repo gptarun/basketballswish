@@ -59,6 +59,7 @@ public class TournamentController : MonoBehaviour {
         ballController = basketball.GetComponent<BallControllerTournament>();
         initializeSharedObjects(0, 0, "quarterFinal");
         userDataController = new UserDataController();
+        userDataController.LoadGameData();
     }
 
     // Update is called once per frame

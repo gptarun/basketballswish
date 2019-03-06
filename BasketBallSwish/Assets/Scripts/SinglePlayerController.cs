@@ -92,6 +92,7 @@ public class SinglePlayerController : MonoBehaviour {
         matchEnded = false;
         StartCoroutine(MakeUserReady());
         userDataController = new UserDataController();
+        userDataController.LoadGameData();
     }
 	
 	// Update is called once per frame

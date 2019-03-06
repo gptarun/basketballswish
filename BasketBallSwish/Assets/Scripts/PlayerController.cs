@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour {
         if (jumpPlayerAudio != null)
             jumpPlayerAudio.Play();
         Vector3 jumpDis = new Vector3(0, 0, 0);
-        float maxHspeed = 2;
+        float maxHspeed = 4;
         float g = Physics.gravity.magnitude; // get the gravity value
         float vSpeed = height; // calculate the vertical speed
         float totalTime = 6 * vSpeed / g; // calculate the total time

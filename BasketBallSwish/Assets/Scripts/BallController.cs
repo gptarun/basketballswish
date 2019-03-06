@@ -213,14 +213,12 @@ public class BallController : MonoBehaviour {
                 if(swishAudio != null)                
                     swishAudio.Play();                               
                 hoopLeft.SetTrigger("isScoreLeft");
-                if (lastContactXpos > 0)
+                if (lastContactXpos > -0.2f)
                 {
-                    Debug.Log(lastContactXpos + " ?? 0");
                     singlePlayerController.scoreB = singlePlayerController.scoreB + 3;
                 }
                 else
                 {
-                    Debug.Log(lastContactXpos + " ?? 0");
                     singlePlayerController.scoreB = singlePlayerController.scoreB + 2;
                 }
                 StartCoroutine("MakeUserScore");
@@ -232,19 +230,19 @@ public class BallController : MonoBehaviour {
                 if (swishAudio != null)
                     swishAudio.Play();                
                 hoopRight.SetTrigger("isScoreRight");
-                if (lastContactXpos < 0)
+                Debug.Log(lastContactXpos);
+                if (lastContactXpos < -1.45f)
                 {
-                    Debug.Log(lastContactXpos + " ?? 0");
                     singlePlayerController.scoreA = singlePlayerController.scoreA + 3;
                 }
                 else                    
                 {
-                    Debug.Log(lastContactXpos + " ?? 0");
-                    singlePlayerController.scoreA = singlePlayerController.scoreB + 2;
+                    singlePlayerController.scoreA = singlePlayerController.scoreA + 2;
                 }
                 StartCoroutine("MakeUserScore");
             }
             upperBound = false;
+            lastContactXpos = 0f;
         }
     }
 
@@ -374,8 +372,9 @@ public class BallController : MonoBehaviour {
 
     IEnumerator MakeUserScore()
     {
+        ballGameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);   //making ball stable
         scoreAnim.SetActive(true);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         singlePlayerController.ResetPositions();             
         scoreAnim.SetActive(false);
     }

@@ -54,5 +54,6 @@ public class UserDataController : MonoBehaviour {
         string filePath = Application.dataPath + gameDataProjectFilePath;
         File.WriteAllText(filePath, dataAsJson);
         uncheckedData = true;
+        LoadGameData();
     }
 }

@@ -46,6 +46,7 @@ public class SinglePlayerController : MonoBehaviour {
     /// </summary>
     [HideInInspector] public Sprite[] faces;
     [HideInInspector] public Sprite[] jersey;
+    private UserDataController userDataController;
     // Use this for initialization
 
     void Start () {
@@ -89,6 +90,7 @@ public class SinglePlayerController : MonoBehaviour {
         isTick = true;
         matchEnded = false;
         StartCoroutine(MakeUserReady());
+        userDataController = new UserDataController();
     }
 	
 	// Update is called once per frame
@@ -214,12 +216,29 @@ public class SinglePlayerController : MonoBehaviour {
         {
             Debug.Log("Team A wins");
             winnerName.text = teamAFullName + " Wins!";
+            if (teamAMode.Equals("human"))
+            {
+                userDataController.userData.baskyCoins += (100 + scoreA);
+            }
+            else if (teamBMode.Equals("human"))
+            {
+                userDataController.userData.baskyCoins += (scoreB);
+            }
+            userDataController.SaveGameData();
             MatchEnded();
         }
         else if (scoreA < scoreB)
         {
             Debug.Log("Team B wins");
             winnerName.text = teamBFullName + " Wins!";
+            if (teamBMode.Equals("human"))
+            {
+                userDataController.userData.baskyCoins += (100 + scoreB);
+            } else if (teamAMode.Equals("human"))
+            {
+                userDataController.userData.baskyCoins += (scoreA);
+            }
+            userDataController.SaveGameData();
             MatchEnded();
         }
         else

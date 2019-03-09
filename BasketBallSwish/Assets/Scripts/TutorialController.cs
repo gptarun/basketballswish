@@ -8,7 +8,7 @@ using System;
 public class TutorialController : MonoBehaviour {
     public TextMeshProUGUI tutorial1;       // show text on UI
     public GameObject messageScreen;
-    private List<string> tutorialMsgs = new List<string>(new string[] { "Hello, Welcome to the Game Tutorial. Tap the screen to Jump", "Good Job! Now tap and hold to jump and to raise your hands. Then release.", "Excellent! To thow the Basketball, tap and hold to Jump and aim towards the Hoop." });
+    private List<string> tutorialMsgs = new List<string>(new string[] { "Hello, Welcome to the Game Tutorial. Tap the screen to Jump", "Good Job! Now tap and hold to jump and raise your hands. Then release.", "Excellent! To throw the Basketball, tap and hold to Jump and aim towards the Hoop.","Thanks for playing the tutorial!" });
     public GameObject player;
     public GameObject hand;
     int count = 0;
@@ -23,7 +23,10 @@ public class TutorialController : MonoBehaviour {
     public GameObject basketball;
     private GameObject handPivot;
     private bool attached;
-    
+    public TextMeshProUGUI onScreenTapText;
+    private List<string> onScreenTapList = new List<string>(new string[] {"Tap Here!", "Tap and Hold!", "Tap to jump and Throw!"});
+    public GameObject tapFinger;
+
     // Use this for initialization
     void Start () {
         wait = false;
@@ -44,11 +47,12 @@ public class TutorialController : MonoBehaviour {
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         if (!tutorialEnded)
-        {
+        {            
             if (Input.touchCount > 0)
             {
+                Debug.Log(count);
                 Touch touch = Input.GetTouch(0);
                 if (!wait)
                 {
@@ -57,12 +61,14 @@ public class TutorialController : MonoBehaviour {
                         if (tutorialMsgs[count].Contains("Hello, Welcome"))
                         {
                             Jump();
+                            tapFinger.SetActive(false);         //hiding the finger tap animation
                             basketball.SetActive(false);
                         }
                         else if (tutorialMsgs[count].Contains("Good Job! Now tap"))
                         {
                             Jump();
                             rotate = true;
+                            tapFinger.SetActive(false);         //hiding the finger tap animation
                             basketball.SetActive(false);
                             if (touch.phase.Equals(TouchPhase.Began))
                             {
@@ -73,22 +79,17 @@ public class TutorialController : MonoBehaviour {
                                 antiRotate = true;
                             }
                         }
-                        else if (tutorialMsgs[count].Contains("Excellent! To thow"))
+                        else if (tutorialMsgs[count].Contains("Excellent! To throw"))
                         {
                             Jump();
                             rotate = true;
+                            tapFinger.SetActive(false);         //hiding the finger tap animation
                             //basketball.SetActive(true);
                         }
                         count++;
                         StartCoroutine(WaitForNextTutorial());
                         wait = true;
-                    }
-                    else
-                    {
-                        tutorialCompletion.SetActive(true);
-                        tutorialEnded = true;
-                        messageScreen.SetActive(false);
-                    }
+                    }                   
                 }
                 if (tutorialMsgs[count - 1].Contains("Good Job! Now tap"))
                 {
@@ -101,7 +102,7 @@ public class TutorialController : MonoBehaviour {
                         antiRotate = true;
                     }
                 }
-                if (tutorialMsgs[count - 1].Contains("Excellent! To thow"))
+                if (tutorialMsgs[count - 1].Contains("Excellent! To throw"))
                 {
                     if (touch.phase.Equals(TouchPhase.Began))
                     {
@@ -168,19 +169,24 @@ public class TutorialController : MonoBehaviour {
 
     IEnumerator WaitForNextTutorial()
     {
-        if(count == 4)
+        if(count == 3)
         {
-            yield return new WaitForSeconds(5f);
+            tapFinger.SetActive(false);            
+            yield return new WaitForSeconds(3f);
+            tutorialEnded = true;
+            tutorialCompletion.SetActive(true);            
+            messageScreen.SetActive(false);            
         }
         else
         {
             yield return new WaitForSeconds(2f);
         }
-        wait = false;
+        wait = false;       
         if (count < 3)
         {
+            tapFinger.SetActive(true);         //showing the finger tap animation
+            onScreenTapText.SetText(onScreenTapList[count]);
             tutorial1.SetText(tutorialMsgs[count]);
-            Debug.Log("");
         }
         if (count == 2)
         {

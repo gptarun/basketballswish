@@ -1,4 +1,5 @@
 ﻿using GoogleMobileAds.Api;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +13,16 @@ public class AdManager : MonoBehaviour {
     // Update is called once per frame
     SinglePlayerController singlePlayer;
     TournamentController tournamentController;
+    private RewardBasedVideoAd rewardedAd;
+    private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //Test id need to change in production
+    //private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //give real rewarded id
     private void Start()
     {
         //string adID = "ca-app-pub-7244224353357409/2886059541";   //User actual id
-        string adID = "ca-app-pub-3940256099942544/1033173712";     //Test interstitial test id - Need to change in production
+        string adID = "ca-app-pub-3940256099942544/1033173712";     //Test interstitial test id - Need to change in production        
+        
 #if UNITY_ANDROID
-        string adUnitId = adID;
+    string adUnitId = adID;
 #elif UNITY_IOS
         string adUnitId = adID;
 #else
@@ -36,6 +41,20 @@ public class AdManager : MonoBehaviour {
         {
             tournamentController = FindObjectOfType<TournamentController>();
         }
+
+
+        rewardedAd = RewardBasedVideoAd.Instance;
+
+        RequestRewardedAd();
+
+
+        rewardedAd.OnAdLoaded += HandleRewardBasedVideoLoaded;
+
+        rewardedAd.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
+
+        rewardedAd.OnAdRewarded += HandleRewardBasedVideoRewarded;
+
+        rewardedAd.OnAdClosed += HandleRewardBasedVideoClosed;
     }
 
     void Update () {
@@ -91,5 +110,52 @@ public class AdManager : MonoBehaviour {
     {
         //Resume Play Sound
 
+    }
+
+    public void RequestRewardedAd()
+    {
+        AdRequest request = new AdRequest.Builder().Build();
+
+        rewardedAd.LoadAd(request, rewardedAdID);
+    }
+
+    public void ShowRewardedAd()
+    {
+        if (rewardedAd.IsLoaded())
+        {
+            rewardedAd.Show();
+        }
+        else
+        {
+            Debug.Log("Rewarded ad not loaded");
+        }
+    }
+
+    public void HandleRewardBasedVideoLoaded(object sender, EventArgs args)
+    {
+        Debug.Log("Rewarded Video ad loaded successfully");
+
+    }
+
+    public void HandleRewardBasedVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        Debug.Log("Failed to load rewarded video ad : " + args.Message);
+
+
+    }
+
+    public void HandleRewardBasedVideoRewarded(object sender, Reward args)
+    {
+        string type = args.Type;
+        double amount = args.Amount;
+        Debug.Log("You have been rewarded with  " + amount.ToString() + " " + type);
+        //call add coins method after watching video
+        //will be reflected in the android device.
+    }
+
+    public void HandleRewardBasedVideoClosed(object sender, EventArgs args)
+    {
+        Debug.Log("Rewarded video has closed");
+        RequestRewardedAd();
     }
 }

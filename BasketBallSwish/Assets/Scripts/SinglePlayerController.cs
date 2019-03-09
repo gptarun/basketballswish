@@ -289,7 +289,7 @@ public class SinglePlayerController : MonoBehaviour {
         {
             GameStats.maxPoints = int.Parse(teamBScore.text);
         }
-        GameStats.steals = UnityEngine.Random.Range(10, 20);
+        GameStats.steals = UnityEngine.Random.Range(10, 20);        
         matchEnded = true;
         GameStats.matchEnded = matchEnded;
     }

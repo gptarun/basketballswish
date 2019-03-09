@@ -22,7 +22,7 @@ public class GameStats : MonoBehaviour {
     void Start () {
 
         filePath = Application.persistentDataPath + "/option.txt";
-        Debug.Log(filePath);
+        Debug.Log(File.Exists(filePath));
         if (!File.Exists(filePath))     // Checking if file is not exists then putting some value in it.
         {
             string[] saveGameStats = new string[]{

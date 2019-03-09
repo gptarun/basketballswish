@@ -40,6 +40,7 @@ public class BallController : MonoBehaviour {
     public Animator hoopLeft;
     public Animator hoopRight;
     private float lastContactXpos;
+    public GameObject basketballScore;
 
     void Start()
     {
@@ -216,10 +217,12 @@ public class BallController : MonoBehaviour {
                 if (lastContactXpos > -0.2f)
                 {
                     singlePlayerController.scoreB = singlePlayerController.scoreB + 3;
+                    basketballScore.SetActive(true);
                 }
                 else
                 {
                     singlePlayerController.scoreB = singlePlayerController.scoreB + 2;
+                    basketballScore.SetActive(false);
                 }
                 StartCoroutine("MakeUserScore");
             }
@@ -231,13 +234,15 @@ public class BallController : MonoBehaviour {
                     swishAudio.Play();                
                 hoopRight.SetTrigger("isScoreRight");
                 Debug.Log(lastContactXpos);
-                if (lastContactXpos < -1.45f)
+                if (lastContactXpos > -1.45f)
                 {
                     singlePlayerController.scoreA = singlePlayerController.scoreA + 3;
+                    basketballScore.SetActive(true);
                 }
                 else                    
                 {
                     singlePlayerController.scoreA = singlePlayerController.scoreA + 2;
+                    basketballScore.SetActive(true);
                 }
                 StartCoroutine("MakeUserScore");
             }
@@ -268,7 +273,14 @@ public class BallController : MonoBehaviour {
         }
         if (collision.transform.name.Contains("Body") || collision.transform.name.Contains("Hand"))
         {
-            lastContactXpos = collision.transform.position.x;
+            if (collision.transform.name.Contains("Body"))
+            {
+                lastContactXpos = collision.transform.position.x;
+            }
+            if (collision.transform.name.Contains("Hand"))
+            {
+                lastContactXpos = collision.transform.parent.transform.position.x;
+            }
         }
     }
 

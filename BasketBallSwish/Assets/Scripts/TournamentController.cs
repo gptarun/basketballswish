@@ -49,6 +49,7 @@ public class TournamentController : MonoBehaviour {
     private bool isTick;
     public AudioSource gameBell;
     public BallControllerTournament ballController;
+    private UserDataController userDataController;
     // Use this for initialization
     void Start()
     {
@@ -57,6 +58,8 @@ public class TournamentController : MonoBehaviour {
         basketball = GameObject.Find("basketball");
         ballController = basketball.GetComponent<BallControllerTournament>();
         initializeSharedObjects(0, 0, "quarterFinal");
+        userDataController = new UserDataController();
+        userDataController.LoadGameData();
     }
 
     // Update is called once per frame
@@ -255,12 +258,30 @@ public class TournamentController : MonoBehaviour {
         {
             winnerName.text = teamAFullName + " Wins!";
             setMatchResults(teamAFullName, scoreA, teamBFullName, scoreB, matchDays);
+            if (teamAMode.Equals("human"))
+            {
+                userDataController.userData.baskyCoins += (100 + scoreA);
+            }
+            else if (teamBMode.Equals("human"))
+            {
+                userDataController.userData.baskyCoins += (scoreB);
+            }
+            userDataController.SaveGameData();
             MatchEnded();
         }
         else if (scoreA < scoreB)
         {
             winnerName.text = teamBFullName + " Wins!";
             setMatchResults(teamBFullName, scoreB, teamAFullName, scoreA, matchDays);
+            if (teamBMode.Equals("human"))
+            {
+                userDataController.userData.baskyCoins += (100 + scoreB);
+            }
+            else if (teamAMode.Equals("human"))
+            {
+                userDataController.userData.baskyCoins += (scoreA);
+            }
+            userDataController.SaveGameData();
             MatchEnded();
         }
         else

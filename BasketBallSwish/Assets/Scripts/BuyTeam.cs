@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,23 +12,123 @@ public class BuyTeam : MonoBehaviour {
     /// </summary>
     public Button buyButton;        // Need to set interactable true/false based on amount
     public Button teamUp;
-    public Button teamDown;	
+    public Button teamDown;
+    public TeamDataController teamDataController;
+    private Dictionary<string, TeamStatus> teamDict;
+    public Image teamImage;
+    public Sprite[] flags;
+    private int teamCounter;
+    private int index;
+    [SerializeField] public TextMeshProUGUI teamNameText;
+    [SerializeField] public TextMeshProUGUI teamCostText;
+    [SerializeField] public TextMeshProUGUI baskyCoins;
+    private UserDataController userDataController;
+
+    void Start()
+    {
+        teamDict = new Dictionary<string, TeamStatus>();
+        teamCounter = 0;
+        index = 0;
+        userDataController = new UserDataController();
+        userDataController.LoadGameData();
+        baskyCoins.SetText(userDataController.userData.baskyCoins.ToString());
+        teamDataController = new TeamDataController();
+        LoadBuyTeamData();
+        flags = Resources.LoadAll<Sprite>("Flags");
+    }
 
     public void ConfirmedBuyTeam()
     {
         Debug.Log("Successfully bought this team");
-        // Need to check amount then allow player to buy team    
+        // Need to check amount then allow player to buy team
+        if (teamDict.ContainsKey(teamNameText.GetParsedText().ToString()))
+        {
+            userDataController.userData.baskyCoins -= teamDict[teamNameText.GetParsedText()].TeamCost;
+            userDataController.SaveGameData();
+            baskyCoins.SetText(userDataController.userData.baskyCoins.ToString());
+            teamDict[teamNameText.GetParsedText()].LockedStatus = false;
+            teamDataController.EditTeamData(teamDict[teamNameText.GetParsedText().ToString()]);
+            LoadBuyTeamData();
+        }
+        else
+        {
+            Debug.Log("Team does not exist in dictionary");
+        }
     }
 
     public void GoUp()
     {
+        index--;
         Debug.Log("Up");
         //Going up
+        if (index < 0)
+        {
+            index = teamCounter - 1;
+        }
+        SetTeamFlag(teamImage, teamDict.Keys.ElementAt(index));
+        teamNameText.SetText(teamDict.Keys.ElementAt(index));
+        teamCostText.SetText(teamDict.Values.ElementAt(index).TeamCost.ToString());
     }
 
     public void GoDown()
     {
+        index++;
         Debug.Log("Down");
         //Going down
+        if (index >= teamCounter)
+        {
+            index = 0;
+        }
+        SetTeamFlag(teamImage, teamDict.Keys.ElementAt(index));
+        teamNameText.SetText(teamDict.Keys.ElementAt(index));
+        teamCostText.SetText(teamDict.Values.ElementAt(index).TeamCost.ToString());
     }
+
+    public void SetTeamFlag(Image image, string teamName)
+    {
+        for (int i=0;i < flags.Length; i++)
+        {
+            if (flags[i].name.ToLower().Equals(teamName.ToLower()))
+            {
+                image.sprite = flags[i];
+                image.overrideSprite = flags[i];
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (teamDict.ContainsKey(teamNameText.GetParsedText().ToString()))
+        {
+            if (userDataController.userData.baskyCoins < teamDict[teamNameText.GetParsedText().ToString()].TeamCost)
+            {
+                buyButton.enabled = false;
+            }
+            else
+            {
+                buyButton.enabled = true;
+            }
+        }
+
+    }
+
+    public void LoadBuyTeamData()
+    {
+        teamDataController.LoadGameData(); // loading the data from file
+        teamDict.Clear();
+        teamCounter = 0;
+        for (int i = 0; i < teamDataController.teamData.Length; i++)
+        {
+            if (teamDataController.teamData[i].LockedStatus)
+            {
+                teamDict.Add(teamDataController.teamData[i].TeamName, teamDataController.teamData[i]); // setting the data in the dictionary which was fetched from file
+                teamCounter++;
+            }
+        }
+        SetTeamFlag(teamImage, teamDict.Keys.First());
+        teamNameText.SetText(teamDict.Keys.First());
+        teamCostText.SetText(teamDict.Values.First().TeamCost.ToString());
+    }
+
 }

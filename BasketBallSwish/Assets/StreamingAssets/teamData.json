@@ -10,7 +10,7 @@
         {
             "TeamName": "Argentina",
             "ShortName": "Arg",
-            "LockedStatus": true,
+            "LockedStatus": false,
             "TeamCost": 5000,
             "TeamRating": 3
         },

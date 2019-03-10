@@ -302,10 +302,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0, g: 0.2784314, b: 0.69803923, a: 1}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.39215687}
     m_PressedColor: {r: 0, g: 0, b: 0, a: 0.5882353}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0, g: 0.2784314, b: 0.69803923, a: 0.5019608}
     m_ColorMultiplier: 2.5
     m_FadeDuration: 0.5
   m_SpriteState:
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.2789268, b: 0.6981132, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3762,7 +3762,7 @@ GameObject:
   - component: {fileID: 717891904}
   - component: {fileID: 717891903}
   m_Layer: 0
-  m_Name: TextMeshPro Text
+  m_Name: BaskyCoins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3955,6 +3955,10 @@ MonoBehaviour:
   loadingScreen: {fileID: 1837765910}
   slider: {fileID: 520868467}
   tutorialPopUp: {fileID: 0}
+  tutorialButton: {fileID: 0}
+  quickGameButton: {fileID: 0}
+  backButton: {fileID: 0}
+  shopButton: {fileID: 0}
 --- !u!1 &828747534
 GameObject:
   m_ObjectHideFlags: 0
@@ -7183,7 +7187,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 0.1254902, b: 0, a: 0.19607843}
     m_HighlightedColor: {r: 1, g: 0.1254902, b: 0, a: 0.39215687}
     m_PressedColor: {r: 1, g: 0.1254902, b: 0, a: 0.5882353}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 0.1254902, b: 0, a: 0.19607843}
     m_ColorMultiplier: 2.5
     m_FadeDuration: 0.5
   m_SpriteState:
@@ -8198,6 +8202,10 @@ MonoBehaviour:
   loadingScreen: {fileID: 1837765910}
   slider: {fileID: 520868467}
   tutorialPopUp: {fileID: 538749824}
+  tutorialButton: {fileID: 120499398}
+  quickGameButton: {fileID: 1608724261}
+  backButton: {fileID: 1317335791}
+  shopButton: {fileID: 44202567}
 --- !u!1 &1491582113
 GameObject:
   m_ObjectHideFlags: 0
@@ -9272,7 +9280,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0, g: 0, b: 0, a: 0.19607843}
     m_HighlightedColor: {r: 0, g: 0, b: 0, a: 0.39215687}
     m_PressedColor: {r: 0, g: 0, b: 0, a: 0.5882353}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.19607843}
     m_ColorMultiplier: 2.5
     m_FadeDuration: 0.5
   m_SpriteState:
@@ -9477,6 +9485,50 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1608724261}
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1317335791}
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 44202567}
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 120499398}
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -10044,6 +10096,12 @@ MonoBehaviour:
   buyButton: {fileID: 1050066498}
   teamUp: {fileID: 178432037}
   teamDown: {fileID: 21848822}
+  teamDataController: {fileID: 0}
+  teamImage: {fileID: 1121305919}
+  flags: []
+  teamNameText: {fileID: 2138382511}
+  teamCostText: {fileID: 1154219865}
+  baskyCoins: {fileID: 717891903}
 --- !u!114 &1755424738
 MonoBehaviour:
   m_ObjectHideFlags: 0

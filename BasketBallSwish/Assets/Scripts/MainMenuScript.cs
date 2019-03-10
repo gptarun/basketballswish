@@ -9,8 +9,12 @@ public class MainMenuScript : MonoBehaviour {
     public GameObject loadingScreen;
     public Slider slider;
     public GameObject tutorialPopUp;
+    public Button tutorialButton;
+    public Button quickGameButton;
+    public Button backButton;
+    public Button shopButton;
 
-	public void PlaySingleGame()
+    public void PlaySingleGame()
     {
         StartCoroutine(LoadSceneAsynchronously("GameScene"));       
     }
@@ -45,7 +49,11 @@ public class MainMenuScript : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.20f);
         tutorialPopUp.SetActive(true);
-    }
+        tutorialButton.interactable = false;
+        quickGameButton.interactable = false;
+        backButton.interactable = false;
+        shopButton.interactable = false;
+}
 
     public void quit()
     {

@@ -8,7 +8,7 @@ public class TeamDataController : MonoBehaviour {
     
     public TeamStatus[] teamData;
     public bool uncheckedData;
-    private string gameDataProjectFilePath = "/StreamingAssets/teamData.json";
+    private string gameDataProjectFilePath = "/teamData.json";
 
     void Start()
     {
@@ -45,7 +45,8 @@ public class TeamDataController : MonoBehaviour {
     //fetch the data from JSON file
     public void LoadGameData()
     {
-        string filePath = Application.dataPath + gameDataProjectFilePath;
+        string filePath = Application.persistentDataPath + gameDataProjectFilePath;
+        Debug.Log(filePath);
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
@@ -63,7 +64,7 @@ public class TeamDataController : MonoBehaviour {
     {
         string dataAsJson = JSonHelper.ToJson(teamData, true);
 
-        string filePath = Application.dataPath + gameDataProjectFilePath;
+        string filePath = Application.persistentDataPath + gameDataProjectFilePath;
         File.WriteAllText(filePath, dataAsJson);
         uncheckedData = true;
     }

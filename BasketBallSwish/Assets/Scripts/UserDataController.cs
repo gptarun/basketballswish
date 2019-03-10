@@ -7,7 +7,7 @@ public class UserDataController : MonoBehaviour {
 
     public UserData userData;
     public bool uncheckedData;
-    private string gameDataProjectFilePath = "/StreamingAssets/userData.json";
+    private string gameDataProjectFilePath = "/userData.json";
 
     void Start()
     {

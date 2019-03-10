@@ -33,7 +33,7 @@ public class UserDataController : MonoBehaviour {
     //fetch the data from JSON file
     public void LoadGameData()
     {
-        string filePath = Application.dataPath + gameDataProjectFilePath;
+        string filePath = Application.persistentDataPath + gameDataProjectFilePath;
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
@@ -51,7 +51,7 @@ public class UserDataController : MonoBehaviour {
     {
         string dataAsJson = JsonUtility.ToJson(userData, true);
 
-        string filePath = Application.dataPath + gameDataProjectFilePath;
+        string filePath = Application.persistentDataPath + gameDataProjectFilePath;
         File.WriteAllText(filePath, dataAsJson);
         uncheckedData = true;
         LoadGameData();

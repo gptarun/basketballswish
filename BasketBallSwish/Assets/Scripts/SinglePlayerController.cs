@@ -114,14 +114,14 @@ public class SinglePlayerController : MonoBehaviour {
                 {
                     Debug.Log("Deleted");
                     Destroy(GameObject.Find("BallShadow(Clone)"));
-                }
-                Time.timeScale = 0f;
+                }                
                 qTimer = OptionMenuScript.quaterDuration[OptionMenuScript.quaterTimerCounter];
                 quaterCounter++;
                 isTick = true;
                 quaterBreak.SetActive(true);                
                 quater.text = "Q" + quaterCounter;                                
-                StartCoroutine(MakeUserReady());                                
+                StartCoroutine(MakeUserReady());
+                Time.timeScale = 0f;
             }
             else
             {
@@ -155,15 +155,19 @@ public class SinglePlayerController : MonoBehaviour {
     public void ResetPositions()
     {
         StopCoroutine("LoseTime");
+        if(basketball.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Static)
+        {
+            basketball.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            basketball.GetComponent<Rigidbody2D>().gravityScale = 1;
+        }
         basketball.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         basketball.GetComponent<Rigidbody2D>().angularVelocity = 0;
-        basketball.GetComponent<CircleCollider2D>().isTrigger = false;
-        if (ballController.attached)
-        {
-            basketball.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;
-            basketball.GetComponent<Rigidbody2D>().gravityScale = 1;
-            ballController.attached = false;
-        }
+        basketball.GetComponent<CircleCollider2D>().isTrigger = false;        
+        ballController.attached = false;
+        ballController.attachName = "";
+        ballController.attachParentName = "";
+        ballController.attachTagName = "";
+        ballController.attachedIllusion = false;
         for (int i = 0; i < player.Length; i++)
         {
             player[i].transform.position = playerPosition[i];

@@ -21,7 +21,7 @@ public class BallController : MonoBehaviour {
     [HideInInspector] public bool isThrow = false;
     [HideInInspector] public string attachTagName;
     private GameObject gameSceneObject;
-    private bool attachedIllusion;
+    public bool attachedIllusion;
     public HandMovement handMovement;
 	[SerializeField] GameObject blurBall;
     private bool waitToThrowA;
@@ -232,8 +232,7 @@ public class BallController : MonoBehaviour {
                     scoreAudio.Play();
                 if (swishAudio != null)
                     swishAudio.Play();                
-                hoopRight.SetTrigger("isScoreRight");
-                Debug.Log(lastContactXpos);
+                hoopRight.SetTrigger("isScoreRight");               
                 if (lastContactXpos > -1.45f)
                 {
                     singlePlayerController.scoreA = singlePlayerController.scoreA + 3;

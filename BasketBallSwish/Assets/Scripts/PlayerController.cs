@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
-    private bool jumpA;
-    private bool jumpB;
+public class PlayerController : MonoBehaviour {    
     [HideInInspector] public bool isGrounded;
     public SinglePlayerController singlePlayerController;
     private float screenWidth;
@@ -26,7 +24,7 @@ public class PlayerController : MonoBehaviour {
         ballGameObject = GameObject.Find("basketball");
         ballScript = ballGameObject.GetComponent<BallController>();
         jumpPlayerAudio = GetComponent<AudioSource>();
-        isGrounded = true;
+        this.isGrounded = true;
         if (OptionMenuScript.difficultyLevel.Equals("EASY"))
         {
             botTimer = 1;
@@ -41,17 +39,17 @@ public class PlayerController : MonoBehaviour {
     void Update()
     {
         if (!singlePlayerController.matchEnded){
-            //For Bot movement
+          //For Bot movement
             if (singlePlayerController.teamAMode.Equals("bot"))
             {
-                if (this.transform.tag.Equals("TeamA") && isGrounded && !routineCall)
+                if (this.transform.tag.Equals("TeamA") && this.isGrounded && !routineCall)
                 {
                     StartCoroutine(BotJump(botTimer));
                 }
             }
             if (singlePlayerController.teamBMode.Equals("bot"))
             {
-                if (this.transform.tag.Equals("TeamB") && isGrounded && !routineCall)
+                if (this.transform.tag.Equals("TeamB") && this.isGrounded && !routineCall)
                 {
                     StartCoroutine(BotJump(botTimer));
                 }
@@ -68,35 +66,35 @@ public class PlayerController : MonoBehaviour {
                 {
                     if (touchA.position.x < screenWidth / 2)
                     {
-                        if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamA") && isGrounded)
+                        if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamA") && this.isGrounded)
                         {
                             this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, jumpHeight);
-                            isGrounded = false;
+                            this.isGrounded = false;
                         }
                     }
                     else if (touchA.position.x > screenWidth / 2)
                     {
-                        if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamB") && isGrounded)
+                        if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamB") && this.isGrounded)
                         {
                             this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, jumpHeight);
-                            isGrounded = false;
+                            this.isGrounded = false;
                         }
                     }
                 }
                 else if (singlePlayerController.teamAMode.Equals("human") && singlePlayerController.teamBMode.Equals("bot"))
                 {
-                    if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamA") && isGrounded)
+                    if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamA") && this.isGrounded)
                     {
                         this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, jumpHeight);
-                        isGrounded = false;
+                        this.isGrounded = false;
                     }
                 }
                 else if (singlePlayerController.teamAMode.Equals("bot") && singlePlayerController.teamBMode.Equals("human"))
                 {
-                    if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamB") && isGrounded)
+                    if (touchA.phase.Equals(TouchPhase.Began) && this.transform.tag.Equals("TeamB") && this.isGrounded)
                     {
                         this.gameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(ballGameObject, jumpHeight);
-                        isGrounded = false;
+                        this.isGrounded = false;
                     }
                 }
             }
@@ -110,7 +108,7 @@ public class PlayerController : MonoBehaviour {
         if (jumpPlayerAudio != null)
             jumpPlayerAudio.Play();
         Vector3 jumpDis = new Vector3(0, 0, 0);
-        float maxHspeed = 4;
+        float maxHspeed = 3;
         float g = Physics.gravity.magnitude; // get the gravity value
         float vSpeed = height; // calculate the vertical speed
         float totalTime = 6 * vSpeed / g; // calculate the total time
@@ -167,7 +165,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.transform.tag.Contains("ground"))
         {
-            isGrounded = true;
+            this.isGrounded = true;
             if (ballScript.attached && ballScript.attachParentName.Equals(this.gameObject.name))
             {
                 ballScript.isThrow = true;
@@ -179,7 +177,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.transform.tag.Contains("ground"))
         {
-            isGrounded = false;
+            this.isGrounded = false;
         }
     }
     

@@ -42,7 +42,8 @@ public class UserDataController : MonoBehaviour {
         }
         else
         {
-            Debug.LogError("Cannot load game data!");
+            userData = new UserData("zAri", 25, "Male", 100, 10000, false);
+            SaveGameData();
         }
     }
 

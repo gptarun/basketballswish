@@ -11,13 +11,15 @@ public class UserData {
     public string gender;
     public long expPoints;
     public long baskyCoins;
+    public bool tutorialTaken;
 
-    public UserData(string userName, int age, string gender, long expPoints, long baskyCoins)
+    public UserData(string userName, int age, string gender, long expPoints, long baskyCoins, bool tutorialTaken)
     {
         this.userName = userName;
         this.age = age;
         this.gender = gender;
         this.expPoints  = expPoints;
         this.baskyCoins = baskyCoins;
+        this.tutorialTaken = tutorialTaken;
     }
 }

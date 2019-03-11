@@ -13,6 +13,7 @@ public class MainMenuScript : MonoBehaviour {
     public Button quickGameButton;
     public Button backButton;
     public Button shopButton;
+    private UserDataController userDataController;
 
     public void PlaySingleGame()
     {
@@ -36,8 +37,15 @@ public class MainMenuScript : MonoBehaviour {
     }
 
     public void PlayTutorial()
-    {        
-        StartCoroutine(WaitToStartTutorial());        
+    {
+        userDataController = new UserDataController();
+        userDataController.LoadGameData();
+        if (!userDataController.userData.tutorialTaken)
+        {
+            StartCoroutine(WaitToStartTutorial());
+            userDataController.userData.tutorialTaken = true;
+            userDataController.SaveGameData();
+        }
     }
 
     public void StartTutorial()

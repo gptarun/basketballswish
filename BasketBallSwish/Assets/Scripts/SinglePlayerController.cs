@@ -48,6 +48,7 @@ public class SinglePlayerController : MonoBehaviour {
     [HideInInspector] public Sprite[] faces;
     [HideInInspector] public Sprite[] jersey;
     private UserDataController userDataController;
+    [SerializeField] public TextMeshProUGUI coinsCredit;
     // Use this for initialization
 
     void Start () {
@@ -234,10 +235,12 @@ public class SinglePlayerController : MonoBehaviour {
             if (teamAMode.Equals("human"))
             {
                 userDataController.userData.baskyCoins += (100 + scoreA);
+                coinsCredit.SetText("Coins : " + (100 + scoreA));
             }
             else if (teamBMode.Equals("human"))
             {
                 userDataController.userData.baskyCoins += (scoreB);
+                coinsCredit.SetText("Coins : " + scoreB);
             }
             userDataController.SaveGameData();
             MatchEnded();
@@ -249,9 +252,11 @@ public class SinglePlayerController : MonoBehaviour {
             if (teamBMode.Equals("human"))
             {
                 userDataController.userData.baskyCoins += (100 + scoreB);
+                coinsCredit.SetText("Coins : " + (100 + scoreB));
             } else if (teamAMode.Equals("human"))
             {
                 userDataController.userData.baskyCoins += (scoreA);
+                coinsCredit.SetText("Coins : " + scoreA);
             }
             userDataController.SaveGameData();
             MatchEnded();

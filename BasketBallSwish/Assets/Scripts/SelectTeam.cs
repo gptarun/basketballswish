@@ -6,12 +6,14 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using System;
+using System.IO;
 
 public class SelectTeam : MonoBehaviour {
 
     private List<string> teamList = new List<string>(new string[] { "Africa", "Argentina", "Australia", "Brazil", "China", "France", "India", "Mexico", "Philippines", "Russia", "Serbia", "Singapore", "Spain", "Thailand", "USA", "Yugoslavia"});
     private readonly List<string> teamListShort = new List<string>(new string[] { "Afr", "Arg", "Aus", "Bra", "Chi", "Fra", "Ind", "Mex", "Phi", "Rus", "Ser", "Sin", "Spa", "Tha", "Usa", "Yug" });
     private readonly List<int> teamRating = new List<int>(new int[] { 2,3,2,3,2,3,2,1,2,3,2,2,3,2,3,3 });
+    private readonly List<long> teamCost = new List<long>(new long[] { 2000, 5000, 2000, 4500, 2000, 5500, 2000, 1000, 2000, 4500, 2000, 2000, 5500, 2000, 6000, 4000 });
     //private readonly List<bool> teamLocks = new List<bool>(new bool[] { false, true, false, true, false, true, false, false, false, true, false, false, true, false, true, true});
     //Choosing Teams
     [SerializeField] public TextMeshProUGUI teamAChoice;
@@ -57,11 +59,7 @@ public class SelectTeam : MonoBehaviour {
         modeB = "bot";
         teamDict = new Dictionary<string, TeamStatus>();
         teamDataController = new TeamDataController();
-        teamDataController.LoadGameData(); // loading the data from file
-        for (int i=0; i < teamDataController.teamData.Length; i++)
-        {
-            teamDict.Add(teamDataController.teamData[i].TeamName, teamDataController.teamData[i]); // setting the data in the dictionary which was fetched from file
-        }
+        loadFileData();
         //teamDataController.EditTeamData(new TeamStatus("Africa","Afr", true,3)); //For testing the data is loading from JSON file in updation at runtime
     }
 	
@@ -277,4 +275,35 @@ public class SelectTeam : MonoBehaviour {
             playButton.interactable = false;
         }
     }
+
+    public void loadFileData()
+    {
+        if (File.Exists(Application.persistentDataPath + "/teamData.json"))
+        {
+            teamDataController.LoadGameData(); // loading the data from file
+            for (int i = 0; i < teamDataController.teamData.Length; i++)
+            {
+                teamDict.Add(teamDataController.teamData[i].TeamName, teamDataController.teamData[i]); // setting the data in the dictionary which was fetched from file
+            }
+        }
+        else
+        {
+            teamDataController.teamData = new TeamStatus[16];
+            for (int i = 0; i < teamList.Capacity; i++)
+            {
+                if (teamRating[i] == 3)
+                {
+                    teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], true, teamCost[i], teamRating[i]));
+                    teamDataController.teamData[i] = new TeamStatus(teamList[i], teamListShort[i], true, teamCost[i], teamRating[i]);
+                }
+                else
+                {
+                    teamDict.Add(teamList[i], new TeamStatus(teamList[i], teamListShort[i], false, teamCost[i], teamRating[i]));
+                    teamDataController.teamData[i] = new TeamStatus(teamList[i], teamListShort[i], false, teamCost[i], teamRating[i]);
+                }
+            }
+            teamDataController.SaveGameData();
+        }
+    }
+
 }

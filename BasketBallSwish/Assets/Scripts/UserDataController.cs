@@ -42,7 +42,7 @@ public class UserDataController : MonoBehaviour {
         }
         else
         {
-            userData = new UserData("zAri", 25, "Male", 100, 10000, false);
+            userData = new UserData("zAri", 25, "Male", 0, 0, false);
             SaveGameData();
         }
     }

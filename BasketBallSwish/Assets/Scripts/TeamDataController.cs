@@ -9,6 +9,7 @@ public class TeamDataController : MonoBehaviour {
     public TeamStatus[] teamData;
     public bool uncheckedData;
     private string gameDataProjectFilePath = "/teamData.json";
+    private SelectTeam selectTeam; //taking help from select team to create json file :D
 
     void Start()
     {
@@ -55,6 +56,8 @@ public class TeamDataController : MonoBehaviour {
         }
         else
         {
+            selectTeam = new SelectTeam();
+            selectTeam.loadFileData();
             Debug.LogError("Cannot load game data!");
         }
     }

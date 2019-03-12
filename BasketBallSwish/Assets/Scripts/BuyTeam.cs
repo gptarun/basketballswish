@@ -22,7 +22,7 @@ public class BuyTeam : MonoBehaviour {
     [SerializeField] public TextMeshProUGUI teamNameText;
     [SerializeField] public TextMeshProUGUI teamCostText;
     [SerializeField] public TextMeshProUGUI baskyCoins;
-    private UserDataController userDataController;
+    private UserDataController userDataController;    
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class BuyTeam : MonoBehaviour {
         baskyCoins.SetText(userDataController.userData.baskyCoins.ToString());
         teamDataController = new TeamDataController();
         LoadBuyTeamData();
-        flags = Resources.LoadAll<Sprite>("Flags");
+        flags = Resources.LoadAll<Sprite>("Flags");        
     }
 
     public void ConfirmedBuyTeam()
@@ -113,8 +113,17 @@ public class BuyTeam : MonoBehaviour {
 
     }
 
-    public void LoadBuyTeamData()
+    /*This method calls when user clicks on Shop button
+    * IMP -> Enabled on Button clicks -->  TeamShop(Game obj) all scripts -> From Inspector
+    * Called the Select Team script if TeamData.json doesn't exists.
+    */
+
+    public void LoadBuyTeamData()         
     {
+        if(teamDataController == null)
+        {
+            teamDataController = new TeamDataController();
+        }
         teamDataController.LoadGameData(); // loading the data from file
         teamDict.Clear();
         teamCounter = 0;
@@ -129,6 +138,11 @@ public class BuyTeam : MonoBehaviour {
         SetTeamFlag(teamImage, teamDict.Keys.First());
         teamNameText.SetText(teamDict.Keys.First());
         teamCostText.SetText(teamDict.Values.First().TeamCost.ToString());
+    }
+
+    public void UpdateBasketCoinsAfterPurchase()
+    {
+        baskyCoins.SetText((userDataController.userData.baskyCoins + 30).ToString());
     }
 
 }

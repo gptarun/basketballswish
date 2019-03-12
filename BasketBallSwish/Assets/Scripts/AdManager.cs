@@ -17,6 +17,7 @@ public class AdManager : MonoBehaviour {
     private UserDataController userDataController;
     private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //Test id need to change in production
     //private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //give real rewarded id
+
     private void Start()
     {
         //string adID = "ca-app-pub-7244224353357409/2886059541";   //User actual id
@@ -138,14 +139,11 @@ public class AdManager : MonoBehaviour {
     public void HandleRewardBasedVideoLoaded(object sender, EventArgs args)
     {
         Debug.Log("Rewarded Video ad loaded successfully");
-
     }
 
     public void HandleRewardBasedVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
         Debug.Log("Failed to load rewarded video ad : " + args.Message);
-
-
     }
 
     public void HandleRewardBasedVideoRewarded(object sender, Reward args)

@@ -280,6 +280,10 @@ public class SelectTeam : MonoBehaviour {
     {
         if (File.Exists(Application.persistentDataPath + "/teamData.json"))
         {
+            if(teamDataController == null)
+            {
+                teamDataController = new TeamDataController();
+            }
             teamDataController.LoadGameData(); // loading the data from file
             for (int i = 0; i < teamDataController.teamData.Length; i++)
             {
@@ -288,6 +292,11 @@ public class SelectTeam : MonoBehaviour {
         }
         else
         {
+            if (teamDataController == null)
+            {
+                teamDataController = new TeamDataController();
+                teamDict = new Dictionary<string, TeamStatus>();
+            }
             teamDataController.teamData = new TeamStatus[16];
             for (int i = 0; i < teamList.Capacity; i++)
             {

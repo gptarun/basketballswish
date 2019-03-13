@@ -27,6 +27,7 @@ public class BallController : MonoBehaviour {
     private bool waitToThrowA;
     private bool waitToThrowB;
     private bool upperBound;
+    private bool lowerBound;
     public AudioSource scoreAudio;
     public AudioSource swishAudio;
     public GameObject scoreAnim;
@@ -41,6 +42,7 @@ public class BallController : MonoBehaviour {
     public Animator hoopRight;
     private float lastContactXpos;
     public GameObject basketballScore;
+    public AudioSource throwAudio;
 
     void Start()
     {
@@ -76,6 +78,9 @@ public class BallController : MonoBehaviour {
             botTimer = 0.85f;
         }        
         lastContactXpos = 0f;
+
+        upperBound = false;
+        lowerBound = false;
     }
 
     void Update()
@@ -184,6 +189,11 @@ public class BallController : MonoBehaviour {
         {
             Instantiate(blurBall, transform.position, transform.rotation);//creating motion blur
         }
+
+        if(upperBound && lowerBound && !attached)
+        {
+
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D col)
@@ -218,12 +228,15 @@ public class BallController : MonoBehaviour {
                 {
                     singlePlayerController.scoreB = singlePlayerController.scoreB + 3;
                     basketballScore.SetActive(true);
+                    ballGameObject.GetComponent<Collider2D>().enabled = false;
                 }
                 else
                 {
                     singlePlayerController.scoreB = singlePlayerController.scoreB + 2;
                     basketballScore.SetActive(false);
+                    ballGameObject.GetComponent<Collider2D>().enabled = false;
                 }
+                
                 StartCoroutine("MakeUserScore");
             }
             if (col.transform.parent.tag.Equals("BasketB"))
@@ -237,16 +250,22 @@ public class BallController : MonoBehaviour {
                 {
                     singlePlayerController.scoreA = singlePlayerController.scoreA + 3;
                     basketballScore.SetActive(true);
+                    ballGameObject.GetComponent<Collider2D>().enabled = false;
                 }
                 else                    
                 {
                     singlePlayerController.scoreA = singlePlayerController.scoreA + 2;
                     basketballScore.SetActive(true);
+                    ballGameObject.GetComponent<Collider2D>().enabled = false;
                 }
                 StartCoroutine("MakeUserScore");
             }
             upperBound = false;
             lastContactXpos = 0f;
+        }
+        if (col.tag.Equals("lowerbound") && !upperBound)
+        {
+            upperBound = false;
         }
     }
 
@@ -255,7 +274,7 @@ public class BallController : MonoBehaviour {
         if (collision.tag.Equals("upperbound"))
         {
             upperBound = false;
-        }                           
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -285,7 +304,8 @@ public class BallController : MonoBehaviour {
 
     private void LaunchBall(GameObject basket, float height)
     {
-        //ballGameObject.transform.parent = gameSceneObject.transform;
+        if(throwAudio != null)
+            throwAudio.Play();
         basketballSprite.sortingOrder = 0;
         ballGameObject.GetComponent<Rigidbody2D>().bodyType = (RigidbodyType2D)0;
         ballGameObject.GetComponent<Rigidbody2D>().velocity = CalculateJumpDistance(basket, height);// launch the projectile!
@@ -386,6 +406,7 @@ public class BallController : MonoBehaviour {
         ballGameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f,0f);   //making ball stable
         scoreAnim.SetActive(true);
         yield return new WaitForSeconds(0.5f);
+        ballGameObject.GetComponent<Collider2D>().enabled = true;
         singlePlayerController.ResetPositions();             
         scoreAnim.SetActive(false);
     }

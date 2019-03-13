@@ -123,6 +123,7 @@ public class BuyTeam : MonoBehaviour {
         if(teamDataController == null)
         {
             teamDataController = new TeamDataController();
+            teamDataController.LoadGameData();
         }
         teamDataController.LoadGameData(); // loading the data from file
         teamDict.Clear();
@@ -142,6 +143,7 @@ public class BuyTeam : MonoBehaviour {
 
     public void UpdateBasketCoinsAfterPurchase()
     {
+        Debug.Log(userDataController.userData.baskyCoins);
         baskyCoins.SetText((userDataController.userData.baskyCoins + 30).ToString());
     }
 

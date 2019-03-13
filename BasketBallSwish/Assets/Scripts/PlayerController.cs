@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         //this.playerAnim["Player_Idle"].time = Random.Range(0,0.2f);
         screenWidth = Screen.width;
-        jumpHeight = 8.0f;
+        jumpHeight = 8.5f;
         ballGameObject = GameObject.Find("basketball");
         ballScript = ballGameObject.GetComponent<BallController>();
         jumpPlayerAudio = GetComponent<AudioSource>();
@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour {
         }
         return jumpDis;
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag.Contains("ground"))
         {

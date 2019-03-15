@@ -22,7 +22,8 @@ public class BuyTeam : MonoBehaviour {
     [SerializeField] public TextMeshProUGUI teamNameText;
     [SerializeField] public TextMeshProUGUI teamCostText;
     [SerializeField] public TextMeshProUGUI baskyCoins;
-    private UserDataController userDataController;    
+    private UserDataController userDataController;
+    public GameObject noTeamToBuyPopup;
 
     void Start()
     {
@@ -34,6 +35,14 @@ public class BuyTeam : MonoBehaviour {
         baskyCoins.SetText(userDataController.userData.baskyCoins.ToString());
         teamDataController = new TeamDataController();
         LoadBuyTeamData();
+        if (teamDict==null || teamDict.Count == 0)
+        {
+            noTeamToBuyPopup.SetActive(true);
+        }
+        else
+        {
+            noTeamToBuyPopup.SetActive(false);
+        }
         flags = Resources.LoadAll<Sprite>("Flags");        
     }
 
@@ -49,6 +58,14 @@ public class BuyTeam : MonoBehaviour {
             teamDict[teamNameText.GetParsedText()].LockedStatus = false;
             teamDataController.EditTeamData(teamDict[teamNameText.GetParsedText().ToString()]);
             LoadBuyTeamData();
+            if (teamDict == null || teamDict.Count == 0)
+            {
+                noTeamToBuyPopup.SetActive(true);
+            }
+            else
+            {
+                noTeamToBuyPopup.SetActive(false);
+            }
         }
         else
         {
@@ -136,9 +153,12 @@ public class BuyTeam : MonoBehaviour {
                 teamCounter++;
             }
         }
-        SetTeamFlag(teamImage, teamDict.Keys.First());
-        teamNameText.SetText(teamDict.Keys.First());
-        teamCostText.SetText(teamDict.Values.First().TeamCost.ToString());
+        if (teamDataController.teamData!=null && teamDict.Count!=0)
+        {
+            SetTeamFlag(teamImage, teamDict.Keys.First());
+            teamNameText.SetText(teamDict.Keys.First());
+            teamCostText.SetText(teamDict.Values.First().TeamCost.ToString());
+        }
     }
 
     public void UpdateBasketCoinsAfterPurchase()

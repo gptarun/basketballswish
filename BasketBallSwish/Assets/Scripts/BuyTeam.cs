@@ -23,6 +23,7 @@ public class BuyTeam : MonoBehaviour {
     [SerializeField] public TextMeshProUGUI teamCostText;
     [SerializeField] public TextMeshProUGUI baskyCoins;
     private UserDataController userDataController;
+    public GameObject rewardedPanel;
     public GameObject noTeamToBuyPopup;
 
     void Start()
@@ -45,6 +46,7 @@ public class BuyTeam : MonoBehaviour {
         }
         flags = Resources.LoadAll<Sprite>("Flags");        
     }
+   
 
     public void ConfirmedBuyTeam()
     {
@@ -128,6 +130,10 @@ public class BuyTeam : MonoBehaviour {
             }
         }
 
+        if (AdManager.rewardedPanel)
+        {
+            rewardedPanel.SetActive(true);
+        }
     }
 
     /*This method calls when user clicks on Shop button
@@ -163,8 +169,9 @@ public class BuyTeam : MonoBehaviour {
 
     public void UpdateBasketCoinsAfterPurchase()
     {
-        Debug.Log(userDataController.userData.baskyCoins);
+        userDataController.LoadGameData();
         baskyCoins.SetText((userDataController.userData.baskyCoins + 30).ToString());
+        AdManager.rewardedPanel = false;
     }
 
 }

@@ -17,6 +17,8 @@ public class AdManager : MonoBehaviour {
     private UserDataController userDataController;
     private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //Test id need to change in production
     //private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //give real rewarded id
+    public static bool rewardedPanel;
+    string adMessageType;
 
     private void Start()
     {
@@ -60,6 +62,7 @@ public class AdManager : MonoBehaviour {
 
         userDataController = new UserDataController();
         userDataController.LoadGameData();
+        rewardedPanel = false;
     }
 
     void Update () {
@@ -124,6 +127,12 @@ public class AdManager : MonoBehaviour {
         rewardedAd.LoadAd(request, rewardedAdID);
     }
 
+    public new void SendMessage(string messageType)
+    {
+        Debug.Log(messageType);
+        adMessageType = messageType;
+    }
+
     public void ShowRewardedAd()
     {
         if (rewardedAd.IsLoaded())
@@ -153,13 +162,21 @@ public class AdManager : MonoBehaviour {
         Debug.Log("You have been rewarded with  " + amount.ToString() + " " + type);
         //call add coins method after watching video
         //will be reflected in the android device.
-        userDataController.userData.baskyCoins += 30;
-        userDataController.SaveGameData();
+        if (adMessageType.Contains("twice"))
+        {
+            //need to handle the 2x coins
+        }
+        else
+        {
+            userDataController.userData.baskyCoins += 30;
+            userDataController.SaveGameData();
+            rewardedPanel = true;
+        }
     }
 
     public void HandleRewardBasedVideoClosed(object sender, EventArgs args)
     {
         Debug.Log("Rewarded video has closed");
-        RequestRewardedAd();
+        RequestRewardedAd();        
     }
 }

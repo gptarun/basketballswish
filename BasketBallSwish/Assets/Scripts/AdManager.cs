@@ -17,7 +17,7 @@ public class AdManager : MonoBehaviour {
     private UserDataController userDataController;
     private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //Test id need to change in production
     //private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //give real rewarded id
-    public BuyTeam buyTeam;
+    public static bool rewardedPanel;
 
     private void Start()
     {
@@ -60,7 +60,8 @@ public class AdManager : MonoBehaviour {
         rewardedAd.OnAdClosed += HandleRewardBasedVideoClosed;
 
         userDataController = new UserDataController();
-        userDataController.LoadGameData();        
+        userDataController.LoadGameData();
+        rewardedPanel = false;
     }
 
     void Update () {
@@ -156,13 +157,12 @@ public class AdManager : MonoBehaviour {
         //will be reflected in the android device.
         userDataController.userData.baskyCoins += 30;
         userDataController.SaveGameData();
-        if(buyTeam != null)
-            buyTeam.rewardedPanel.SetActive(true);
+        rewardedPanel = true;
     }
 
     public void HandleRewardBasedVideoClosed(object sender, EventArgs args)
     {
         Debug.Log("Rewarded video has closed");
-        RequestRewardedAd();
+        RequestRewardedAd();        
     }
 }

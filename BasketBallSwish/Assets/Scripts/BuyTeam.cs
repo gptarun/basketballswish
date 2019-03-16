@@ -22,7 +22,8 @@ public class BuyTeam : MonoBehaviour {
     [SerializeField] public TextMeshProUGUI teamNameText;
     [SerializeField] public TextMeshProUGUI teamCostText;
     [SerializeField] public TextMeshProUGUI baskyCoins;
-    private UserDataController userDataController;    
+    private UserDataController userDataController;
+    public GameObject rewardedPanel;
 
     void Start()
     {
@@ -143,7 +144,7 @@ public class BuyTeam : MonoBehaviour {
 
     public void UpdateBasketCoinsAfterPurchase()
     {
-        Debug.Log(userDataController.userData.baskyCoins);
+        userDataController.LoadGameData();
         baskyCoins.SetText((userDataController.userData.baskyCoins + 30).ToString());
     }
 

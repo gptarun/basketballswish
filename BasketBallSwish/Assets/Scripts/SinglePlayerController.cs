@@ -49,6 +49,7 @@ public class SinglePlayerController : MonoBehaviour {
     [HideInInspector] public Sprite[] jersey;
     private UserDataController userDataController;
     [SerializeField] public TextMeshProUGUI coinsCredit;
+    private int coinsWon;
     // Use this for initialization
 
     void Start () {
@@ -94,6 +95,7 @@ public class SinglePlayerController : MonoBehaviour {
         StartCoroutine(MakeUserReady());
         userDataController = new UserDataController();
         userDataController.LoadGameData();
+        coinsWon = 0;
     }
 	
 	// Update is called once per frame
@@ -234,14 +236,15 @@ public class SinglePlayerController : MonoBehaviour {
             winnerName.text = teamAFullName + " Wins!";
             if (teamAMode.Equals("human"))
             {
-                userDataController.userData.baskyCoins += (100 + scoreA);
-                coinsCredit.SetText("Coins : " + (100 + scoreA));
+                coinsWon = (100 + scoreA);
             }
             else if (teamBMode.Equals("human"))
             {
-                userDataController.userData.baskyCoins += (scoreB);
-                coinsCredit.SetText("Coins : " + scoreB);
+                coinsWon = scoreB;
             }
+            AdManager.rewardTwice = coinsWon;
+            userDataController.userData.baskyCoins += coinsWon;
+            coinsCredit.SetText("Coins : " + coinsWon);
             userDataController.SaveGameData();
             MatchEnded();
         }
@@ -251,13 +254,15 @@ public class SinglePlayerController : MonoBehaviour {
             winnerName.text = teamBFullName + " Wins!";
             if (teamBMode.Equals("human"))
             {
-                userDataController.userData.baskyCoins += (100 + scoreB);
-                coinsCredit.SetText("Coins : " + (100 + scoreB));
-            } else if (teamAMode.Equals("human"))
-            {
-                userDataController.userData.baskyCoins += (scoreA);
-                coinsCredit.SetText("Coins : " + scoreA);
+                coinsWon = (100 + scoreB);
             }
+            else if (teamAMode.Equals("human"))
+            {
+                coinsWon = scoreA;
+            }
+            AdManager.rewardTwice = coinsWon;
+            userDataController.userData.baskyCoins += coinsWon;
+            coinsCredit.SetText("Coins : " + coinsWon);
             userDataController.SaveGameData();
             MatchEnded();
         }

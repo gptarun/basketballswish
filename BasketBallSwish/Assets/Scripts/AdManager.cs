@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -19,6 +20,8 @@ public class AdManager : MonoBehaviour {
     //private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //give real rewarded id
     public static bool rewardedPanel;
     string adMessageType;
+    public static int rewardTwice;
+    [SerializeField] public TextMeshProUGUI coinsCredit;
 
     private void Start()
     {
@@ -64,6 +67,7 @@ public class AdManager : MonoBehaviour {
         userDataController.LoadGameData();
         rewardedPanel = false;
         adMessageType = "";
+        rewardTwice = 0;
     }
 
     void Update () {
@@ -166,6 +170,9 @@ public class AdManager : MonoBehaviour {
         if (adMessageType.Contains("twice"))
         {
             //need to handle the 2x coins
+            userDataController.userData.baskyCoins += rewardTwice;
+            coinsCredit.SetText("Coins : " + 2 * rewardTwice);
+            userDataController.SaveGameData();
         }
         else
         {

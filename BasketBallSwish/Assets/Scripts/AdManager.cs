@@ -63,6 +63,7 @@ public class AdManager : MonoBehaviour {
         userDataController = new UserDataController();
         userDataController.LoadGameData();
         rewardedPanel = false;
+        adMessageType = "";
     }
 
     void Update () {

@@ -13,6 +13,10 @@ public class UserData {
     public long baskyCoins;
     public bool tutorialTaken;
 
+    public UserData()
+    {
+    }
+
     public UserData(string userName, int age, string gender, long expPoints, long baskyCoins, bool tutorialTaken)
     {
         this.userName = userName;

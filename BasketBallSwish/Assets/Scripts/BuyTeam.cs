@@ -170,7 +170,7 @@ public class BuyTeam : MonoBehaviour {
     public void UpdateBasketCoinsAfterPurchase()
     {
         userDataController.LoadGameData();
-        baskyCoins.SetText((userDataController.userData.baskyCoins + 30).ToString());
+        baskyCoins.SetText((userDataController.userData.baskyCoins).ToString());
         AdManager.rewardedPanel = false;
     }
 

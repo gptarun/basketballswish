@@ -26,7 +26,7 @@ public class OptionMenuScript : MonoBehaviour {
     public static string difficultyLevel = "EASY";      //add this to file
     public static bool isSound = true;
     public static bool isMusic = true;
-    public static int[] quaterDuration = { 15, 90, 30 };
+    public static int[] quaterDuration = { 60, 90, 30 };
     public static int quaterTimerCounter = 0;           //add this to file
     // Use this for initialization
     void Start () {

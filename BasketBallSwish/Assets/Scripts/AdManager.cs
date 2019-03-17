@@ -170,6 +170,7 @@ public class AdManager : MonoBehaviour {
         if (adMessageType.Contains("twice"))
         {
             //need to handle the 2x coins
+            userDataController.LoadGameData();
             userDataController.userData.baskyCoins += rewardTwice;
             coinsCredit.SetText("Coins : " + 2 * rewardTwice);
             userDataController.SaveGameData();

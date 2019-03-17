@@ -37,6 +37,7 @@ public class UserDataController : MonoBehaviour {
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath);
+            userData = new UserData();
             userData = JsonUtility.FromJson<UserData>(dataAsJson);
             uncheckedData = false;
         }

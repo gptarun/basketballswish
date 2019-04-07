@@ -16,8 +16,8 @@ public class AdManager : MonoBehaviour {
     TournamentController tournamentController;
     private RewardBasedVideoAd rewardedAd;
     private UserDataController userDataController;
-    private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //Test id need to change in production
-    //private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //give real rewarded id
+    //private string rewardedAdID = "ca-app-pub-3940256099942544/5224354917";        //Test id need to change in production
+    private string rewardedAdID = "ca-app-pub-7244224353357409/2917193567";        //give real rewarded id
     public static bool rewardedPanel;
     string adMessageType;
     public static int rewardTwice;
@@ -25,8 +25,8 @@ public class AdManager : MonoBehaviour {
 
     private void Start()
     {
-        //string adID = "ca-app-pub-7244224353357409/2886059541";   //User actual id
-        string adID = "ca-app-pub-3940256099942544/1033173712";     //Test interstitial test id - Need to change in production        
+        string adID = "ca-app-pub-7244224353357409/2886059541";   //User actual id
+        //string adID = "ca-app-pub-3940256099942544/1033173712";     //Test interstitial test id - Need to change in production        
         
 #if UNITY_ANDROID
     string adUnitId = adID;
